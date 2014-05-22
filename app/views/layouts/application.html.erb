@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="radd" ng-controller="AppCtrl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
+    <title>RADD</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= csrf_meta_tags %>  
+    <%= javascript_include_tag "application" %>
+
+</head>
+<body>
+  <header>
+    <navigation user="models.user"></navigation>
+  </header>
+
+  <div class="container-narrow">
+    <!-- <div class="alert alert-success" ng-show="messages.success">
+      {{messages.success}}
+    </div>
+   -->
+    <div class="alert alert-success" ng-show="messages.getNext().length">
+      {{messages.getNext()}}
+    </div>
+
+    <div class="alert alert-success" ng-show="messages.getCurrent('success')">
+      {{messages.getCurrent('success')}}
+    </div>
+    <div class="alert alert-error" ng-show="messages.getCurrent('errors')">
+      Review the following errors:
+      <div ng-repeat="(field, error) in messages.getCurrent('errors')">
+        {{field}}: {{error}}
+      </div>
+    </div>
+    <div ng-view>
+
+    </div>
+  </div>
+
+</body>
+</html>

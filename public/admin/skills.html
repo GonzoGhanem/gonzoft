@@ -1,0 +1,23 @@
+<div>
+	<h1>Listing Skills </h1>
+	<a ng-show="has_role(admin) || has_role('staff')" href="#/skill/new"> Add new</a>
+</div>
+
+
+<table id="skills" class="table table-hover">
+	<thead>
+		<th> #</th>
+		<th> Name </th>
+		<th> Description</th>
+		<th colspan="2"> Actions</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="(index, skill) in skills">
+			<td> {{index + 1 }}</td>
+			<td> {{skill.name}}</td>
+			<td> {{skill.description}}</td>
+			<td> <a ng-click="edit(skill)"> Edit </a> </td>
+			<td> <a ng-click="delete(skill)"> Delete </a> </td>
+		</tr>
+	</tbody>
+</table>

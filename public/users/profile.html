@@ -1,0 +1,30 @@
+<div ng-controller="UsersCtrl">
+    <form name="profileUpdate" class="form">
+
+        <h2 class="auth-form-heading">{{user.name}}'s public profile</h2><br/>
+     
+        <div class="controls">
+            <h3>User Profile </h3>
+            <label for="name">Name (to be displayed): </label>
+            
+            <input id="name" type="text" class="input-large" placeholder="Name" ng-model="user.name" required>
+            
+            <label for="email">Email: </label>
+            
+            <input id="email" type="text" class="input-large" placeholder="Email address" ng-model="user.email" required>
+            
+            <label for="password">Password: </label>
+            
+            <input id="password" type="password" class="input-large" placeholder="Password" ng-model="user.password">
+            <div ng-show="has_role('admin')">
+                <label for="roles"> Roles:</label>
+                <div ng-repeat="role in roles">
+                    <input type="checkbox" class="checkbox-inline" checklist-model="user.roles" checklist-value="role"> {{role.name}}
+                    <!-- <input class="checkbox-inline" type="checkbox" id="inlineCheckbox-role-{{role.id}}" value="{{role.id}}"> {{role.name}} -->
+                </div>
+            </div>
+            
+            <input class="btn btn-large btn-primary" type="submit" ng-click="updateProfile(user)" ng-disabled="processing" value="Update my info" />
+        </div>
+    </form>
+</div>

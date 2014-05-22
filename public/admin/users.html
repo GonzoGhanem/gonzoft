@@ -1,0 +1,17 @@
+<table id="users" class="table table-hover">
+	<thead>
+		<th> #</th>
+		<th> Name </th>
+		<th> Email</th>
+		<th colspan="2"> Actions</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="(index, user) in users">
+			<td> {{index + 1 }}</td>
+			<td> {{user.name}}</td>
+			<td> {{user.email}}</td>
+			<td> <a ng-click="edit(user)"> Edit </a> </td>
+			<td> <a ng-click="delete(user)"> Delete </a> </td>
+		</tr>
+	</tbody>
+</table>

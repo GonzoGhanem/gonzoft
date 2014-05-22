@@ -1,0 +1,22 @@
+<nav class="navbar navbar-inner" ng-show="models.user != null">
+  <div class="container">
+    <a class="brand" href="#"><i class="icon-globe"></i>&nbsp;Gonzoft</a>
+    <div class="navbar-content">
+      <ul class="nav nav-tabs pull-right">
+        <li><a class="nav" href="#/clients"> Clients </a></li>
+        <li><a class="nav" href="#/users/index" ng-show="has_role('admin')"> Admin </a></li>
+        <li><a class="nav" href="#/skills/index" ng-show="has_role('admin')"> Skills </a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">My profile <b class="caret"></b></a>
+          <ul class="dropdown-menu"> 
+            <li><a class="nav" href="#/user/profile"> User profile </a></li>
+            <li><a class="nav" href="#"> Employee profile </a></li>
+            <li><a class="nav" href="#/user/skills"> My Skills </a></li>
+            <li><a class="nav" href="#"> My Project </a></li>
+          </ul>
+        </li>
+        <li><a href="#/" class="nav" ng-click="logout()"> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
