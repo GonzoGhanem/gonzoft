@@ -21,7 +21,7 @@
 //= require directives/checklist-model/checklist-model
 
 
-var myApp = angular.module('radd', ['ngRoute', 'ui.bootstrap', 'userService', 'sessionService','recordService', 'adminService', 'clientService', 'skillService','$strap.directives'])
+var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService', 'sessionService','recordService', 'adminService', 'clientService', 'skillService','$strap.directives'])
   .config(['$httpProvider', function($httpProvider){
         $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
         var interceptor = ['$location', '$rootScope', '$q', function($location, $rootScope, $q) {
