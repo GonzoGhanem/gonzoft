@@ -1,7 +1,6 @@
 //= require jquery.min
 //= require suggest.min
 //= require ui-bootstrap-tpls-0.11.0
-//= require bootstrap.min
 //= require angular-strap.min
 //= require services/adminService
 //= require services/clientService
