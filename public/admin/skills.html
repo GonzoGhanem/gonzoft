@@ -1,6 +1,12 @@
 <div>
 	<h1>Listing Skills </h1>
-	<a ng-show="has_role(admin) || has_role('staff')" href="#/skill/new"> Add new</a>
+	<a ng-show="has_role(admin) || has_role('staff')" ng-hide="addingNew" ng-click="addNew()" class="btn btn-success"> Add new</a>
+	<div class="form-inline" id="addNewSkill" ng-show="addingNew">
+		<input type="text" ng-model="newSkill.name" id="newSkillName" class="input-medium" placeholder="Name">
+		<input type="text" ng-model="newSkill.description" id="newSkillDescription" class="input-large" placeholder="Description">
+		<a class="btn btn-success" ng-click="saveNewSkill()"> Save </a>
+		<a class="btn btn-default" ng-click="cancelNewSkill()"> Cancel </a>
+	</div>
 </div>
 
 
