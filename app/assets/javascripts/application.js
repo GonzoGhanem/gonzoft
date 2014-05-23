@@ -100,10 +100,6 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
           }]
         }
       })
-      .when('/skill/new', {
-        templateUrl:'/admin/new_skill.html',  
-        controller:SkillsCtrl
-      })
       .when('/user/profile', {
         templateUrl:'/users/profile.html', 
         controller:ProfileCtrl,
@@ -180,10 +176,14 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
 
         return {
             setCurrent: function(type, message) {
-                if(type == 'errors')
+                if(type == 'errors'){
+                  currentMessage.success = "";
                   currentMessage.errors = message;
-                else 
+                }
+                else {
+                  currentMessage.errors = "";
                   currentMessage.success = message;
+                }
             },
             getCurrent: function(type, message) {
                 if(type == 'errors')

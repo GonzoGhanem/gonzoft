@@ -67,6 +67,7 @@ Radd::Application.routes.draw do
 
       resources :users, only: [:create]
       match '/skills/index' => 'skills#index', :via => :get
+      match '/skills' => 'skills#create', :via => :post
       match '/skills/user' => 'skills#updateUser', :via => :put
       match '/skills/removeFromUser' => 'skills#removeFromUser', :via => :put
       match '/clients/create' => 'clients#create', :via => :post
