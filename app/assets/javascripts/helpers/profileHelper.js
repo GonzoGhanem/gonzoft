@@ -3,12 +3,11 @@
 // };
 
 $(document).ready(function() {
-  $("#profile_picture").click(function(){
-    console.log("conchudo");
-  });
+  //$("#profile_picture").click(function(){
+	//    console.log("conchudo");
+  //});
 
-  
   //alert("asdasdas");
-  console.log("jQuery ok");
+  //console.log("jQuery ok");
   // Handler for .ready() called.
 });

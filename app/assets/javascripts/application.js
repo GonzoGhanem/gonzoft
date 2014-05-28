@@ -238,6 +238,7 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
 
     Session.requestCurrentUser().then(function(current_user) {
         $scope.models.user = current_user;
+        //$scope.models.user.image = "/images/" + current_user.name;       
         if($scope.models.user) {
           for(var role in $scope.models.user.roles){
             if($scope.models.user.roles[role].name == "admin"){
