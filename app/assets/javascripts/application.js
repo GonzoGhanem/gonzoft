@@ -1,5 +1,6 @@
 //= require jquery.min
 //= require suggest.min
+//= require bootstrap
 //= require ui-bootstrap-tpls-0.11.0
 //= require angular-strap.min
 //= require services/adminService
@@ -152,6 +153,8 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
             return !!$filter('filter')($scope.models.user.roles, role, true).length;
           }
         }
+
+        $("#bs-example-navbar-collapse-1").collapse('show');
       }]
     };
 
