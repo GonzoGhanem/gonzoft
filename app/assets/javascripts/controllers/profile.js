@@ -18,5 +18,7 @@ function ProfileCtrl($scope, User, roles, Session) {"use strict";
    
     };
 
-
+    $scope.onImageSelected = function(file) {
+        console.log("New image: " + file);
+    };
 }

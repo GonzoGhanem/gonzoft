@@ -3,18 +3,22 @@
     <a class="brand" href="#"><i class="icon-globe"></i>&nbsp;Gonzoft</a>
     <div class="navbar-content">
       <ul class="nav nav-tabs pull-right">
+        <li><img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/t1.0-1/c33.0.50.50/p50x50/1452095_10202542616065807_1070958304_a.jpg" height="80%" width="80%"> 
+        </li>  
+        <li><p class="navbar-text navbar-left">{{models.user.name}}</p></li>
+        <li class="divider-vertical"></li>    
         <li><a class="nav" href="#/clients"> Clients </a></li>
         <li><a class="nav" href="#/users/index" ng-show="has_role('admin')"> Admin </a></li>
         <li><a class="nav" href="#/skills/index" ng-show="has_role('admin')"> Skills </a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">My profile <b class="caret"></b></a>
           <ul class="dropdown-menu"> 
-            <li><a class="nav" href="#/user/profile"> User profile </a></li>
-            <li><a class="nav" href="#"> Employee profile </a></li>
+            <li><a class="nav" href="#/user/profile"> Edit Profile </a></li>
             <li><a class="nav" href="#/user/skills"> My Skills </a></li>
             <li><a class="nav" href="#"> My Project </a></li>
           </ul>
         </li>
+        <li><a href="#/user/options" class="nav" > More Options</a></li>
         <li><a href="#/" class="nav" ng-click="logout()"> Logout</a></li>
       </ul>
     </div>

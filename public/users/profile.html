@@ -1,10 +1,35 @@
-<div ng-controller="UsersCtrl">
-    
+<div ng-controller="UsersCtrl">  
     <h2 class="auth-form-heading">{{user.name}}'s public profile</h2><br/>
     <form name="profileUpdate" role="form"> 
-        <div class="form-group">
-            <label for="name">Name (to be displayed): </label>
-                
+      <h5>Add your profile picture</h5>
+        <div ng-controller="FileUploadCtrl">          
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <img id="pictureToShow" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/t1.0-1/c33.0.50.50/p50x50/1452095_10202542616065807_1070958304_a.jpg" height="60px" width="60px">
+                <input accept="image/*" type="file" ng-model-instant id="fileToUpload" multiple onchange="angular.element(this).scope().setFiles(this)" />
+              <div id="dropbox" class="dropbox" ng-class="dropClass"><span>{{dropText}}</span></div>
+              <div id="fileLength" ng-show="files.length">
+                <div ng-repeat="file in files.slice(0)">
+                  <span><strong>Uploading File:</strong> {{file.webkitRelativePath || file.name}}</span>
+                  (<span ng-switch="file.size > 1024*1024">
+                    <span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
+                    <span ng-switch-default>{{file.size / 1024 | number:2}} kB</span>
+                  </span>)
+                </div>
+                <!-- <input type="button" ng-click="uploadFile()" value="Upload" /> -->
+                <div ng-show="progressVisible">
+                  <div class="percent">{{progress}}%</div>
+                  <div class="progress-bar">
+                    <div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+                  </div>
+                </div>
+              </div> 
+        </form>
+      </div>
+    </form>
+
+        <div  class="form-group">
+            <label id="formFields" for="name">Name (to be displayed): </label>
             <input id="name" type="text" class="form-control input-large" placeholder="Name" ng-model="user.name" required>
         </div>
         <div class="form-group">
@@ -17,13 +42,15 @@
                 
             <input id="password" type="password" class="form-control input-large" placeholder="Password" ng-model="user.password">
         </div>
+        
+
+
         <div class="form-group">
-            <div ng-show="has_role('admin')">
-                <label for="roles"> Roles:</label>
-                <div ng-repeat="role in roles">
-                    <input type="checkbox" class="checkbox-inline" checklist-model="user.roles" checklist-value="role"> {{role.name}}
-                        <!-- <input class="checkbox-inline" type="checkbox" id="inlineCheckbox-role-{{role.id}}" value="{{role.id}}"> {{role.name}} -->
-                </div>
+          <div ng-show="has_role('admin')">
+            <label for="roles"> Roles:</label>
+
+            <select ng-model="models.user.roles[0].id" ng-options="role.id as role.name for role in roles">
+            </select>     
             </div>
         </div>
                 

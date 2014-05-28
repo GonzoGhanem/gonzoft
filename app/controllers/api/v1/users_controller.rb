@@ -5,7 +5,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     if current_user.has_role?(:admin)
       render :json =>{:info => "users", :users => User.all}, :status => 200
     else
-      render :json =>{:errors => "No tiene permisos"}, :status => 401
+      render :json =>{:errors => "You don't have permissions for that!"}, :status => 401
     end
   end
 
