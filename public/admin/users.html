@@ -1,6 +1,6 @@
 <div>
   <h3>System Users</h3>
-  <a ng-show="has_role(admin) || has_role('staff')" ng-hide="addingNew" ng-click="addNew()" class="btn btn-success"> Add new user</a>
+  <a ng-show="has_role(admin) || has_role(staff)" ng-hide="addingNew" ng-click="addNew()" class="btn btn-success"> Add new user</a>
 
   <table id="users" class="table table-hover">
   <thead>

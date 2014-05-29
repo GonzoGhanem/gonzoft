@@ -1,6 +1,9 @@
 //= require jquery.min
 //= require suggest.min
 //= require bootstrap
+//= require angular
+//= require angular-route
+//= require angular-resource
 //= require ui-bootstrap-tpls-0.11.0
 //= require angular-strap.min
 //= require services/adminService
@@ -17,9 +20,9 @@
 //= require controllers/skills
 //= require controllers/users
 //= require controllers/userskills
+//= require controllers/fileupload
 //= require directives/navigation/navigation
 //= require directives/checklist-model/checklist-model
-//= require helpers/profileHelper.js
 //= require_self
 //= require_tree .
 
@@ -165,7 +168,6 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
             return !!$filter('filter')($scope.models.user.roles, role, true).length;
           }
         }
-
         $("#bs-example-navbar-collapse-1").collapse('show');
       }]
     };

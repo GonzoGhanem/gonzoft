@@ -1,6 +1,6 @@
 <div>
 	<h1>Listing Skills </h1>
-	<a ng-show="has_role(admin) || has_role('staff')" ng-hide="addingNew" ng-click="addNew()" class="btn btn-success"> Add new</a>
+	<a ng-show="has_role(admin) || has_role(staff)" ng-hide="addingNew" ng-click="addNew()" class="btn btn-success"> Add new</a>
 	<form class="form-inline" name="addNewSkill" ng-show="addingNew">
 		<div class="form-group">
     		<label class="sr-only" for="newSkillName">Name</label>

@@ -11,12 +11,12 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav pull-right">
-        <li> <object data="/images/{{models.user.name}}" width="40px" height="40px" type="image/png"> <img id="navigation_image" src="/images/default.jpeg" width="40px" height="40px"/> </object>
+        <li> <img id="navigation_image" src="/images/{{models.user.name}}" width="40px" height="40px" onerror="if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"/>
         </li>  
         <li><p class="navbar-text navbar-left">{{models.user.name}}</p></li>
         <li><a href="#/clients"> Clients </a></li>
-        <li><a href="#/users/index" ng-show="has_role('admin')"> Admin </a></li>
-        <li><a href="#/skills/index" ng-show="has_role('admin')"> Skills </a></li>
+        <li><a href="#/users/index" ng-show="has_role(admin)"> Admin </a></li>
+        <li><a href="#/skills/index" ng-show="has_role(admin)"> Skills </a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">My profile <b class="caret"></b></a>
           <ul class="dropdown-menu">
