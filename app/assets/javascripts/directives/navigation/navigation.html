@@ -11,7 +11,7 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav pull-right">
-        <li> <img id="navigation_image" src="/images/{{models.user.name}}" width="40px" height="40px" onerror="if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"/>
+        <li> <img id="navigation_image" ng-src="/images/{{models.user.name}}" width="40px" height="40px" onerror="if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"/>
         </li>  
         <li><p class="navbar-text navbar-left">{{models.user.name}}</p></li>
         <li><a href="#/clients"> Clients </a></li>

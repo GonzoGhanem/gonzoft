@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row-fluid">
           <div class="col-md-2">
-            <img id="pictureToShow" src="/images/{{models.user.name}}" width="100px" height="100px" onerror="if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"/>
+            <img id="pictureToShow" ng-src="/images/{{models.user.name}}" width="100px" height="100px" onerror="if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"/>
           </div>
           <div class="col-md-10">        
             <input accept="image/*" type="file" ng-model-instant id="fileToUpload" multiple onchange="angular.element(this).scope().setFiles(this)"/>             
