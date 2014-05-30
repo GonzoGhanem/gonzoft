@@ -3,7 +3,8 @@
 		<div class="jumbotron">
 			<h1>Gonzoft</h1>
 			<p class="lead">A basic example of how to use Rails, Devise and Angular.js in conjunction.</p>
-			<a class="btn btn-large btn-success" href="/#/record">Get inside</a>
+			<a ng-show="models.user" class="btn btn-large btn-success" href="/#/record">Get inside</a>
+			<a ng-hide="models.user" class="btn btn-large btn-success" href="/#/users/login">Login</a>
 		</div>
 
 		<hr>
