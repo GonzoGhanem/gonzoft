@@ -1,11 +1,11 @@
 <div ng-controller="UsersCtrl">
   <h2 class="auth-form-heading">{{user.name}}'s public profile</h2><br/>
-  <div ng-controller="FileUploadCtrl">
+  <div>
     <form name="profileUpdate" role="form">
      <div class="form-group">
       <label for="fileToUpload">Add or modify your profile picture: </label>
       <div class="container-fluid">
-        <div class="row-fluid">
+        <div class="row-fluid"  ng-controller="FileUploadCtrl">
           <div class="col-md-2">
             <img id="pictureToShow" ng-src="/images/{{models.user.name}}" width="100px" height="100px" onerror="if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"/>
           </div>
