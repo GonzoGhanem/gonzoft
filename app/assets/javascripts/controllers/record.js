@@ -1,6 +1,6 @@
-function RecordCtrl($scope, Session, Records) {"use strict";
+function RecordCtrl($scope, Session) {"use strict";
 	
-    $scope.records = Records.index();
+    // $scope.records = Records.index();
 
 }
 
