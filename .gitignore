@@ -21,3 +21,4 @@ config/secrets.yml
 
 development
 
+*.DS_Store
