@@ -18,11 +18,11 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'haml-rails'
 gem 'twitter-bootstrap-rails'
 gem 'nokogiri'
 gem 'devise', '~> 3.2'
 gem 'json'
-
 gem 'raddocs'
 
 group :development, :test do

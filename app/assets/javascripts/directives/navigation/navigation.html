@@ -11,24 +11,24 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav pull-right">
+        <li> <img id="navigation_image" ng-src="/images/{{models.user.name}}" width="40px" height="40px" onerror="if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"/>
+        </li>  
+        <li><p class="navbar-text navbar-left">{{models.user.name}}</p></li>
+        <li><div class="navbar, divider-vertical"></div></li>
         <li><a href="#/clients"> Clients </a></li>
-        <li class="divider"></li>
-        <li><a href="#/users/index" ng-show="has_role('admin')"> Admin </a></li>
-        <li class="divider"></li>
-        <li><a href="#/skills/index" ng-show="has_role('admin')"> Skills </a></li>
-        <li class="divider"></li>
+        <li><a href="#/users/index" ng-show="has_role(admin)"> Admin </a></li>
+        <li><a href="#/skills/index" ng-show="has_role(admin)"> Skills </a></li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">My profile <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="#/user/profile"> User profile </a></li>
-            <li class="divider"></li>
-            <li><a href="#"> Employee profile </a></li>
             <li class="divider"></li>
             <li><a href="#/user/skills"> My Skills </a></li>
             <li class="divider"></li>
             <li><a href="#"> My Project </a></li>
           </ul>
         </li>
+        <li><a href="#/user/options" class="nav" > More Options</a></li>
         <li><a href="#/" class="nav" ng-click="logout()"> Logout</a></li>
       </ul>
     </div>

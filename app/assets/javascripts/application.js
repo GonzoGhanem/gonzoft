@@ -1,6 +1,9 @@
 //= require jquery.min
 //= require suggest.min
 //= require bootstrap
+//= require angular
+//= require angular-route
+//= require angular-resource
 //= require ui-bootstrap-tpls-0.11.0
 //= require angular-strap.min
 //= require services/adminService
@@ -17,9 +20,11 @@
 //= require controllers/skills
 //= require controllers/users
 //= require controllers/userskills
+//= require controllers/fileupload
 //= require directives/navigation/navigation
 //= require directives/checklist-model/checklist-model
-
+//= require_self
+//= require_tree .
 
 var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService', 'sessionService','recordService', 'adminService', 'clientService', 'skillService','$strap.directives'])
   .config(['$httpProvider', function($httpProvider){
@@ -101,6 +106,15 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
           }]
         }
       })
+      .when('/user/options', {
+        templateUrl:'/users/options.html', 
+        controller: UserOptionsCtrl,
+        resolve: {
+          users: ['Admin', function(Admin){
+            return "Guido, Gonzo"; //Admin.getRoles();
+          }]
+        }
+      })
       .when('/user/profile', {
         templateUrl:'/users/profile.html', 
         controller:ProfileCtrl,
@@ -119,6 +133,7 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
 
     Session.requestCurrentUser().then(function(current_user) {
         $scope.models.user = current_user;
+        //$scope.models.user.image = "/images/" + current_user.name;       
         if($scope.models.user) {
           for(var role in $scope.models.user.roles){
             if($scope.models.user.roles[role].name == "admin"){
@@ -153,7 +168,6 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
             return !!$filter('filter')($scope.models.user.roles, role, true).length;
           }
         }
-
         $("#bs-example-navbar-collapse-1").collapse('show');
       }]
     };
