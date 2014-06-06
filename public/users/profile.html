@@ -44,7 +44,7 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="email">Email (login!): </label>
-          <input id="email" type="text" class="form-control input-large" placeholder="Email address" ng-model="user.email" required>
+          <input id="email" type="email" class="form-control input-large" placeholder="Email address" ng-model="user.email" required>
         </div>
       </div>
     </div>
@@ -59,15 +59,15 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <div ng-show="has_role(admin)">
-            <label for="roles"> Roles:</label>
-            <select ng-model="models.user.roles[0].id" ng-options="role.id as role.name for role in roles">
-            </select>     
-          </div>
-        </div>            
-      </div>
-    </div>
-      <button class="btn btn-large btn-primary" type="submit" ng-click="updateProfile(user)" ng-disabled="processing"> Update my info </button>
+            <div >
+                <label for="roles"> Roles:</label>
+                <select ng-options="role.id as role.name for role in roles" ng-model="models.user.roles[0].id">
+                    
+                </select>
+            </div>
+        </div>
+                
+        <button class="btn btn-large btn-primary" type="submit" ng-click="updateProfile(user)" ng-disabled="profileUpdate.$invalid || processing" > Update my info </button>
     </form>
   </div>
 </div>

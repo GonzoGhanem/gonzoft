@@ -9,6 +9,9 @@ function ProfileCtrl($scope, User, roles, Session) {"use strict";
         User.update(user)
             .then(function(response) {
                 $scope.user = response;
+                if ($scope.user.id == $scope.models.user.id ){
+                    $scope.models.user = response;
+                }
                 $scope.messages.setCurrent('success', "Perfil Actualizado!!");
                 $scope.processing = false;
             }, function(response) {

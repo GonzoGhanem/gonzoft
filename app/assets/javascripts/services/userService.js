@@ -7,9 +7,9 @@ angular.module('userService', [])
         }
         var service = {
             update: function(user) {
-                return $http.put('/api/users', {id: user.id, user: {name: user.name, email: user.email, password: user.password} })
+                return $http.put('/api/users', {id: user.id, user: {name: user.name, email: user.email, password: user.password, roles: user.roles}  })
                     .then(function(response) {
-                        service.currentUser = response.config.data.user;
+                        service.currentUser = response.data.user;
                         if (service.isAuthenticated()) {
                             $location.path(response.data.redirect);
                         }

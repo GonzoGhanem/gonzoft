@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
 
   	accepts_nested_attributes_for :roles, :user_skills
 
+  	def updateRoles(new_role_id)
+  		self.roles.delete_all
+  		self.roles.push(Role.find(new_role_id))
+  	end
 end

@@ -93,7 +93,7 @@ function FileUploadCtrl($scope) {
         //console.log("================ responseText ==================")
         //console.log(evt.target.responseText)
         //console.log("================================================")
-        console.log("yo");
+        //console.log("yo");
         $("#pictureToShow").attr("src", "/images/" + filename)
         $("#navigation_image").attr("src", "/images/" + filename)
     }
