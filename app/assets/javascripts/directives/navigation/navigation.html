@@ -14,6 +14,7 @@
         <li> <img id="navigation_image" ng-src="/images/{{models.user.name}}" width="40px" height="40px" onerror="if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"/>
         </li>  
         <li><p class="navbar-text navbar-left">{{models.user.name}}</p></li>
+        <li><div class="navbar, divider-vertical"></div></li>
         <li><a href="#/clients"> Clients </a></li>
         <li><a href="#/users/index" ng-show="has_role(admin)"> Admin </a></li>
         <li><a href="#/skills/index" ng-show="has_role(admin)"> Skills </a></li>
