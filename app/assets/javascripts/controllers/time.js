@@ -1,18 +1,10 @@
 function TimeCtrl($scope, time) {"use strict";
   
-  // $scope.items = [
-  //   {id:"0", name: "Javascript" },
-  //   {id:"1", name: "C/C++" },
-  //   {id:"2", name: "AngularJS" },
-  // ]
-  // $scope.colorful = 0;
-
-  $scope.time = "Now"
-  $scope.population = 7000;
-  $scope.countries = [
-    {id: 1, name: 'France', population: 63.1},
-    {id: 2, name: 'United Kingdom', population: 61.8}
-  ];
+  $scope.client_name = "Gonzoft"
+  $scope.project_name = "Gonzoft Internal"
+  $scope.hours = 8
+  //$scope.user = models.user
+  $scope.date = new Date()
 
   //$scope.user_name = models.user.name;
  
@@ -22,6 +14,11 @@ function TimeCtrl($scope, time) {"use strict";
   $scope.delete = function(time){
     console.log("You just deleted " + time);
   }
+}
+
+function createNewDayEntry (date) {"use strict";
+  alert("Good!")
+  alert(date)
 }
 
 /*

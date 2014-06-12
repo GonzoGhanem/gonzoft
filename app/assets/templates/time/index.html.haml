@@ -1,4 +1,4 @@
-.content
+.content.container
   %ol.breadcrumb
     %li
       %span.glyphicon.glyphicon-home
@@ -10,23 +10,158 @@
   %p
     %h3
       Time Tracker for {{models.user.name}}
-  #date_filter.form-horizontal
-    %p
-      Show days considering
-      %select{ :name => "time_filter[time_filter_status]" }
-        %option{:value => 1}= "This Month"
-        %option{:value => 2}= "Last Month"
-        %option{:value => 3}= "This Week"
-        %option{:value => 4}= "Last Week"
-      / .well
-      /   #datetimepicker1.input-append.date
-      /     %input{ "data-format" => "dd/MM/yyyy hh:mm:ss"}
-      /     %span.add-on
-      /       %i{ "data-time-icon" => "icon-time", "data-date-icon" => "icon-calendar" }
-      /   #datetimepicker.input-append.date
-      /     %input{ "data-format" => "dd/MM/yyyy hh:mm:ss", "type" => "text" }
-      /       %span.add-on
-      /         %i{ "data-time-icon"=>"icon-time", "data-date-icon"=>"icon-calendar" }
+
+  .row.clearfix.well.custom_well#date_filter
+    .col-md-4
+      %p
+        Show days considering
+        %select{ :name => "time_filter[time_filter_status]" }
+          %option{:value => 1}= "This Month"
+          %option{:value => 2}= "Last Month"
+          %option{:value => 3}= "This Week"
+          %option{:value => 4}= "Last Week"
+    .col-md-2
+      Uncompleted
+      %span.badge
+        12
+    .col-md-2.text-right
+      Find Date
+    .col-md-4
+      %input.form-control.small_input{ "type" => "text", "placeholder" => "Search"}
+      / %button.btn.btn-default{ "type" => "submit" }
+      /   Submit
+
+  %hr
+
+  .row.clearfix.row_day#header
+    .col-md-1
+      %strong
+        Date
+    .col-md-1
+      %strong
+        Weekday
+    .col-md-2
+      %strong
+        Type
+    .col-md-2
+      %strong  
+        Client Name
+    .col-md-2  
+      %strong
+        Project Name
+    .col-md-1
+      %strong
+        Hours #
+    .col-md-2
+      %strong
+        Notes
+    .col-md-1
+      %strong
+        Replicate
+
+  .row.clearfix.row_day#day_1
+    .col-md-1
+      19/07/2014
+    .col-md-1
+      Mon
+      %a{ href: "", "onclick" => "createNewDayEntry('10/07/2014');"}
+        %span.glyphicon.glyphicon-plus
+    .col-md-2
+      %select#type{ :name => "time_filter[time_filter_status]" }
+        %option{:value => 1}= "Regular"
+        %option{:value => 2}= "Holiday"
+        %option{:value => 3}= "Holiday Worked"
+        %option{:value => 4}= "Comp Bank"
+        %option{:value => 5}= "Comp Taken"
+        %option{:value => 6}= "Medical Leave"
+        %option{:value => 7}= "Marriage"
+        %option{:value => 8}= "Maternity"
+        %option{:value => 9}= "Vacation"
+        %option{:value => 10}= "Study"
+        %option{:value => 11}= "Overtime"
+    .col-md-2
+      %input.form-control.small_input#client_name{ "type" => "text", "value" => "Gonzoft" }
+    .col-md-2
+      %input.form-control.small_input#project_name{ "type" => "text", "value" => "Gonzoft Inc"}
+    .col-md-1
+      %input.form-control.tiny_input#hours{ "type" => "text", "value" => "8" }
+    .col-md-2
+      %input.form-control.small_input#notes{ "type" => "text", "placeholder" => "Enter comments here" }  
+    .col-md-1.text-center
+      %span.glyphicon.glyphicon-calendar
+
+  .row.clearfix.row_day#day_2
+    .col-md-1
+      20/07/2014
+    .col-md-1
+      Tue
+      %span.glyphicon.glyphicon-plus
+    .col-md-2
+      %select#type{ :name => "time_filter[time_filter_status]" }
+        %option{:value => 1}= "Regular"
+        %option{:value => 2}= "Holiday"
+        %option{:value => 3}= "Holiday Worked"
+        %option{:value => 4}= "Comp Bank"
+        %option{:value => 5}= "Comp Taken"
+        %option{:value => 6}= "Medical Leave"
+        %option{:value => 7}= "Marriage"
+        %option{:value => 8}= "Maternity"
+        %option{:value => 9}= "Vacation"
+        %option{:value => 10}= "Study"
+        %option{:value => 11}= "Overtime"
+    .col-md-2
+      %input.form-control.small_input#client_name{ "type" => "text", "value" => "Gonzoft" }
+    .col-md-2
+      %input.form-control.small_input#project_name{"value" => "Gonzoft Inc"}
+    .col-md-1
+      %input.form-control.tiny_input#hours{ "value" => "" }
+    .col-md-2
+      %input.form-control.small_input#notes{ "type" => "text", "placeholder" => "Enter comments here" }  
+    .col-md-1.text-center
+      %span.glyphicon.glyphicon-calendar
+
+  .row.clearfix.row_day#day_3
+    .col-md-1
+      21/07/2014
+    .col-md-1
+      Wed
+      %span.glyphicon.glyphicon-plus
+    .col-md-2
+      %select#type{ :name => "time_filter[time_filter_status]" }
+        %option{:value => 1}= "Regular"
+        %option{:value => 2}= "Holiday"
+        %option{:value => 3}= "Holiday Worked"
+        %option{:value => 4}= "Comp Bank"
+        %option{:value => 5}= "Comp Taken"
+        %option{:value => 6}= "Medical Leave"
+        %option{:value => 7}= "Marriage"
+        %option{:value => 8}= "Maternity"
+        %option{:value => 9}= "Vacation"
+        %option{:value => 10}= "Study"
+        %option{:value => 11}= "Overtime"
+    .col-md-2
+      %input.form-control.small_input#client_name{ "type" => "text", "value" => "Gonzoft" }
+    .col-md-2
+      %input.form-control.small_input#project_name{"value" => "Gonzoft Inc"}
+    .col-md-1
+      %input.form-control.tiny_input#hours{ "value" => "" }
+    .col-md-2
+      %input.form-control.small_input#notes{ "type" => "text", "placeholder" => "Enter comments here" }  
+    .col-md-1.text-center
+      %span.glyphicon.glyphicon-calendar
+
+
+
+
+    / .well
+    /   #datetimepicker1.input-append.date
+    /     %input{ "data-format" => "dd/MM/yyyy hh:mm:ss"}
+    /     %span.add-on
+    /       %i{ "data-time-icon" => "icon-time", "data-date-icon" => "icon-calendar" }
+    /   #datetimepicker.input-append.date
+    /     %input{ "data-format" => "dd/MM/yyyy hh:mm:ss", "type" => "text" }
+    /       %span.add-on
+    /         %i{ "data-time-icon"=>"icon-time", "data-date-icon"=>"icon-calendar" }
 
   /  :javascript
   /    $(function() { $('#datetimepicker1').datetimepicker({ language: 'pt-BR' }); });

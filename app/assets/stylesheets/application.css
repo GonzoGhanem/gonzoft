@@ -106,3 +106,24 @@ body {
     max-height: 48px;
 }
 
+.custom_well {
+  height: 30px !important;
+  margin: 0px !important;
+  padding: 5px !important;
+  border: 2px !important;
+}
+
+.small_input {
+  height: 22px !important;
+  width: 150px !important;
+}
+
+.tiny_input {
+  height: 22px !important;
+  width: 75px !important;
+}
+
+.row_day {
+  height: 26px !important;
+
+}
