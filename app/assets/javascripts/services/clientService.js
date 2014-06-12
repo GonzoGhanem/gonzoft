@@ -10,10 +10,10 @@ angular.module('clientService', [])
                 return $http({method: 'get', url:'/api/clients/index'})
                     .then(function(response) {
                         service.clients = response.data.clients;
-	                    return service.clients;
+                      return service.clients;
                     },
                     function(response){
-                    	redirect('/');
+                      redirect('/');
                     });
             },
 
@@ -50,7 +50,6 @@ angular.module('clientService', [])
                         //     return myResponse;
                         // }
             }
-
         };
         return service;
     });

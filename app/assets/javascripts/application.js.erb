@@ -12,6 +12,7 @@
 //= require services/sessionService
 //= require services/skillService
 //= require services/userService
+//= require services/timeService
 //= require controllers/app
 //= require controllers/admin
 //= require controllers/clients
@@ -26,7 +27,16 @@
 //= require_self
 //= require_tree .
 
-var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService', 'sessionService','recordService', 'adminService', 'clientService', 'skillService','$strap.directives'])
+var myApp = angular.module('gonzoft', [ 'ngRoute', 
+                                        'ui.bootstrap', 
+                                        'userService', 
+                                        'sessionService',
+                                        'recordService', 
+                                        'adminService', 
+                                        'clientService', 
+                                        'skillService', 
+                                        'timeService', 
+                                        '$strap.directives'])
   .config(['$httpProvider', function($httpProvider){
         $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
         var interceptor = ['$location', '$rootScope', '$q', function($location, $rootScope, $q) {
@@ -49,10 +59,12 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
         }];
         $httpProvider.responseInterceptors.push(interceptor);
   }])
+
+
   .config(['$routeProvider', function($routeProvider){
     $routeProvider
       .when('/', {
-        templateUrl: '/home/index.html'
+        templateUrl:'<%= asset_path("home/index.html") %>'
       })
       .when('/record', {
         templateUrl: '/record/index.html', 
@@ -106,15 +118,24 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
           }]
         }
       })
-      .when('/user/options', {
-        templateUrl:'/users/options.html', 
-        controller: UserOptionsCtrl,
+      .when('/time/index', {
+        templateUrl: '<%= asset_path("time/index.html") %>', 
+        controller: TimeCtrl,
         resolve: {
-          users: ['Admin', function(Admin){
-            return "Guido, Gonzo"; //Admin.getRoles();
+          time: ['Time', function(Time){
+            return Time.getTimeTracker();
           }]
         }
       })
+      .when('/time/show', { 
+        templateUrl: '<%= asset_path("time/show.html") %>',
+        controller: TimeCtrl,
+        resolve: {
+          time: ['Time', function(Time){
+            return Time.getTimeTracker();
+          }]
+        }
+      }) 
       .when('/user/profile', {
         templateUrl:'/users/profile.html', 
         controller:ProfileCtrl,
