@@ -47,12 +47,14 @@ Radd::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  # root :to => 'welcome#index'º
   #resources :home, only: [:index]
   resources :home, only: [:index]
   root :to => "home#index"
   devise_for :users
 
+  #root :to => "pages#index"
+  
   namespace :api, defaults: {format: :json} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
 
@@ -64,7 +66,7 @@ Radd::Application.routes.draw do
       resources :record
       resources :client
       resources :skill
-
+      #resources :time, only: [:show]
       resources :users, only: [:create]
       match '/skills/index' => 'skills#index', :via => :get
       match '/skills' => 'skills#create', :via => :post
@@ -78,6 +80,9 @@ Radd::Application.routes.draw do
       match '/users' => 'users#update', :via => :put
       match '/users' => 'users#destroy', :via => :delete
       match '/fileupload' => 'uploads#save', :via => :post
+      match '/time/index' => 'time#index', :via => :get
+      match '/time/save' => 'time#save', :via => :post
+      match '/time/show' => 'time#show', :via => :get
     end
   end
 
