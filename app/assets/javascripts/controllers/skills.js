@@ -10,7 +10,7 @@ function SkillsCtrl($scope, skills, Skill) {"use strict";
 	$scope.saveNewSkill = function(){
 		Skill.insertSkill($scope.newSkill).then(function(response){
 			$scope.addingNew = false;
-			$scope.messages.setCurrent('success', "New Skill added!!");
+			$scope.messages.setCurrent('success', "Skill " + $scope.newSkill.name + " added!!");
 			$scope.skills.push($scope.newSkill);
 		}, function(response){
 			$scope.messages.setCurrent('errors', response.data.errors);
@@ -26,6 +26,24 @@ function SkillsCtrl($scope, skills, Skill) {"use strict";
 	}
 
 	$scope.delete = function(skill){
-		console.log("You just deleted " + skill.name);
+		if(skill.user_count > 0) {
+			$scope.messages.setCurrent('warnings', "Couldn't remove " + skill.name + " skill since it's used by users!!");
+		}
+		else{
+			Skill.deleteSkill(skill).then(function(response){
+				$scope.messages.setCurrent('success', "Removed " + skill.name +" skill!!");
+				removeSkill(skill);
+			}, function(response){
+				$scope.messages.setCurrent('error', "Couldn't remove " + skill.name + " skill!!");
+			});
+		}
+	}
+
+	function removeSkill(skill){
+		for (var i = 0; i < $scope.skills.length; i++){
+			if ($scope.skills[i].id == skill.id){
+				$scope.skills.splice(i, 1);
+			}
+		} 
 	}
 }

@@ -36,6 +36,7 @@ function UserSkillsCtrl($scope, skills, Skill) {"use strict";
 
 	        Skill.updateUserSkill($scope.user.user_skills[i])
 	            .then(function(response) {
+	            	$scope.messages.setCurrent('success', "Skill was successfully added to your account");
 	                $scope.processing = false;
 	            }, function(response) {
 	                $scope.messages.setCurrent('errors', response.data.errors);

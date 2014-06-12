@@ -176,13 +176,16 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
 
   .factory('messages', function($rootScope) {
         
-        var queueNext = [], currentMessage = {errors: '', success:''}, nextMessage = '';
-  
+        var queueNext = [], currentMessage = {errors: '', success:'', warnings:''}, nextMessage = '';
+        var clearQueue = function(){
+          currentMessage = {
+            errors: '',
+            success: '',
+            warnings: ''
+          };
+        };
         $rootScope.$on('$routeChangeSuccess', function() {
-            currentMessage = {
-              errors: '',
-              success: ''
-            };
+            clearQueue();
             if (queueNext.length > 0) {
                 nextMessage = queueNext.shift();
             }
@@ -193,20 +196,31 @@ var myApp = angular.module('gonzoft', ['ngRoute', 'ui.bootstrap', 'userService',
 
         return {
             setCurrent: function(type, message) {
-                if(type == 'errors'){
-                  currentMessage.success = "";
-                  currentMessage.errors = message;
-                }
-                else {
-                  currentMessage.errors = "";
-                  currentMessage.success = message;
+                clearQueue();
+                switch (type){
+                  case "errors":
+                    currentMessage.errors = message;
+                    break;
+                  case "success":
+                    currentMessage.success = message;
+                    break;
+                  case "warnings":
+                    currentMessage.warnings = message;
+                    break;
                 }
             },
             getCurrent: function(type, message) {
-                if(type == 'errors')
+              switch (type){
+                case "errors":
                   return currentMessage.errors;
-                else
+                  break;
+                case "success":
                   return currentMessage.success;
+                  break;
+                case "warnings":
+                  return currentMessage.warnings;
+                  break;
+              }
             },
             setNext: function(message) {
                 queueNext.push(message);

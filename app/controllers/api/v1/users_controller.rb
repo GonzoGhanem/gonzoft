@@ -3,7 +3,8 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def index
     if current_user.has_role?(:admin)
-      render :json =>{:info => "users", :users => User.all}, :status => 200
+      # render :json =>{:info => "users", :users => User.all}, :status => 200
+      render json: User.all, status: 200
     else
       render :json =>{:errors => "You don't have permissions for that!"}, :status => 401
     end

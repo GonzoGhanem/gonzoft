@@ -23,7 +23,9 @@
     <div class="alert alert-success" ng-show="messages.getNext().length">
       {{messages.getNext()}}
     </div>
-
+    <div class="alert alert-warning" ng-show="messages.getCurrent('warnings')">
+      {{messages.getCurrent('warnings')}}
+    </div>
     <div class="alert alert-success" ng-show="messages.getCurrent('success')">
       {{messages.getCurrent('success')}}
     </div>
