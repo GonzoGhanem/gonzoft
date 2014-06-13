@@ -71,7 +71,7 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         controller: RecordCtrl
       })
       .when('/clients', {
-        templateUrl: '/clients/index.html',
+        templateUrl: '<%= asset_path("clients/index.html") %>',
         controller: ClientCtrl,
         resolve: {
           clients: ['Client', function(Client){
@@ -80,15 +80,15 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         }
       })
       .when('/client/new', {
-        templateUrl: '/clients/new.html',
+        templateUrl: '<%= asset_path("clients/new.html") %>',
         controller: ClientNewCtrl
       })
       .when('/users/login', 
-        {templateUrl: '/users/login.html', 
+        {templateUrl: '<%= asset_path("users/login.html") %>', 
         controller: UsersCtrl
       })
       .when('/users/index', 
-        {templateUrl: '/admin/users.html', 
+        {templateUrl: '<%= asset_path("admin/users.html") %>', 
         controller: AdminCtrl,
         resolve: {
           users: ['Admin', function(Admin){
@@ -97,11 +97,11 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         }
       })
       .when('/users/register', {
-        templateUrl:'/users/register.html',  
+        templateUrl:'<%= asset_path("users/register.html") %>',  
         controller:UsersCtrl
       })
       .when('/skills/index', {
-        templateUrl:'/admin/skills.html',  
+        templateUrl:'<%= asset_path("admin/skills.html") %>',  
         controller:SkillsCtrl,
         resolve: {
           skills: ['Admin', function(Admin){
@@ -110,7 +110,7 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         }
       })
       .when('/user/skills', {
-        templateUrl:'/users/skills.html', 
+        templateUrl:'<%= asset_path("users/skills.html") %>', 
         controller:UserSkillsCtrl,
         resolve: {
           skills: ['Admin', function(Admin){
@@ -137,7 +137,7 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         }
       }) 
       .when('/user/profile', {
-        templateUrl:'/users/profile.html', 
+        templateUrl:'<%= asset_path("users/profile.html") %>', 
         controller:ProfileCtrl,
         resolve: {
           roles: ['Admin', function(Admin){
