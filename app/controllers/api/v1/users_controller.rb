@@ -24,7 +24,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
     @user.save
     if @user.valid?
-      render :json => {:info => "Current User", :user => @user  }, :status => 200
+      render :json =>  @user, :serializer => UserCreateSerializer, :status => 200
     else
       render :json =>{:errors => @user.errors}, :status => 401
     end

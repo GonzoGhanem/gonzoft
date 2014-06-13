@@ -151,7 +151,7 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
     $scope.models.user = null;
     
     $scope.messages = messages;
-
+    $scope.sessionHandler = Session;
     Session.requestCurrentUser().then(function(current_user) {
         $scope.models.user = current_user;
         //$scope.models.user.image = "/images/" + current_user.name;       

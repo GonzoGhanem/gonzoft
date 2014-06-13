@@ -1,7 +1,7 @@
 function UsersCtrl($scope, Session, User, $timeout) {"use strict";
 
     $scope.login = function(user) {
-        
+        debugger;
         Session.login(user.email, user.password)
         .then(function(response) {
             if (!response) {
@@ -18,7 +18,7 @@ function UsersCtrl($scope, Session, User, $timeout) {"use strict";
     $scope.register = function(user) {
         Session.register(user.name, user.email, user.password, user.confirm_password)
             .then(function(response) {
-                $scope.login(response.user);
+                $scope.login(response);
             }, function(response) {
                 $scope.messages.setCurrent('errors', response.data.errors);
             });

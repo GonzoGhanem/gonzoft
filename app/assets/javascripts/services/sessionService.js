@@ -29,7 +29,7 @@ angular.module('sessionService', [])
             register: function(name, email, password, confirm_password) {
                 return $http.post('/api/users', {user: {name: name, email: email, password: password, password_confirmation: confirm_password} })
                 .then(function(response) {
-                    service.currentUser = response.data;
+                    service.currentUser = response.data.user_create;
                     if (service.isAuthenticated()) {
                         $location.path('/record');
                     }
