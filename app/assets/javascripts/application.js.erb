@@ -6,26 +6,12 @@
 //= require angular-resource
 //= require ui-bootstrap-tpls-0.11.0
 //= require angular-strap.min
-//= require services/adminService
-//= require services/clientService
-//= require services/recordService
-//= require services/sessionService
-//= require services/skillService
-//= require services/userService
-//= require services/timeService
-//= require controllers/app
-//= require controllers/admin
-//= require controllers/clients
-//= require controllers/profile
-//= require controllers/record
-//= require controllers/skills
-//= require controllers/users
-//= require controllers/userskills
-//= require controllers/fileupload
-//= require directives/navigation/navigation
-//= require directives/checklist-model/checklist-model
-//= require_self
+//= require_tree ./services/
+//= require_tree ./controllers/
+//= require_tree ./directives/
 //= require_tree .
+//= require_self
+
 
 var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
                                         'ngRoute', 
