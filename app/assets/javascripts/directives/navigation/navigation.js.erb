@@ -1,0 +1,17 @@
+var navApp = angular.module('gonzoftNavbar', []);
+navApp.directive('navigation', [function () {
+return {
+  restrict: 'E',
+  templateUrl: '<%= asset_path("directives/navigation/navigation.html") %>',
+  // templateUrl: '/assets/directives/navigation/navigation.html.haml',
+  controller: ['$scope', '$filter','Session', function($scope, $filter){
+    $scope.has_role = function(role){
+      if($scope.models.user) {
+        return !!$filter('filter')($scope.models.user.roles, role, true).length;
+      }
+    }
+    $("#bs-example-navbar-collapse-1").collapse('show');
+  }]
+};
+
+}])

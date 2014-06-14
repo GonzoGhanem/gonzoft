@@ -27,7 +27,8 @@
 //= require_self
 //= require_tree .
 
-var myApp = angular.module('gonzoft', [ 'ngRoute', 
+var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
+                                        'ngRoute', 
                                         'ui.bootstrap', 
                                         'userService', 
                                         'sessionService',
@@ -179,22 +180,6 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
     };
 
   }])
-  .directive('navigation', [function () {
-    return {
-      restrict: 'E',
-      templateUrl: '/assets/directives/navigation/navigation.html',
-      controller: ['$scope', '$filter','Session', function($scope, $filter, Session){
-        $scope.has_role = function(role){
-          if($scope.models.user) {
-            return !!$filter('filter')($scope.models.user.roles, role, true).length;
-          }
-        }
-        $("#bs-example-navbar-collapse-1").collapse('show');
-      }]
-    };
-
-  }])
-
   .factory('messages', function($rootScope) {
         
         var queueNext = [], currentMessage = {errors: '', success:''}, nextMessage = '';
