@@ -1,7 +1,6 @@
 function UsersCtrl($scope, Session, User, $timeout) {"use strict";
 
     $scope.login = function(user) {
-        debugger;
         Session.login(user.email, user.password)
         .then(function(response) {
             if (!response) {
