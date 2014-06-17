@@ -3,7 +3,6 @@ function UsersCtrl($scope, Session, User, $timeout) {"use strict";
     $scope.login = function(user) {
         Session.login(user.email, user.password)
         .then(function(response) {
-            debugger;
             if (!response) {
                 $scope.messages.setCurrent('errors', "Credentials are not valid!");
             } else {
