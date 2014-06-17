@@ -30,12 +30,6 @@ angular.module('sessionService', [])
                 return $http.post('/api/users', {user: {name: name, email: email, password: password, password_confirmation: confirm_password} })
                 .then(function(response) {
                     service.currentUser = response.data.user_create;
-                    if (service.isAuthenticated()) {
-                        $location.path('/record');
-                    }
-                    if(service.currentUser) {
-                            service.currentUser.roles = response.data.user_roles;
-                        }
                     return service.currentUser;
                 });
             },

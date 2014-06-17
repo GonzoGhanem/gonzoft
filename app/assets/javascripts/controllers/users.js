@@ -18,6 +18,7 @@ function UsersCtrl($scope, Session, User, $timeout) {"use strict";
     $scope.register = function(user) {
         Session.register(user.name, user.email, user.password, user.confirm_password)
             .then(function(response) {
+                $scope.models.user = response;
                 $scope.login(response);
             }, function(response) {
                 $scope.messages.setCurrent('errors', response.data.errors);
