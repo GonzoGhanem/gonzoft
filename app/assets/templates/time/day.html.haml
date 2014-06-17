@@ -1,0 +1,30 @@
+.row.clearfix.row_day
+  .col-md-1
+    {{day.date}}
+  .col-md-1#add_entry
+    {{day.weekday}}
+    %a{ :href => "", "ng-click" => 'timetrack.days.splice(parseInt(day.day_index)+1, 0, { "day_index": parseInt(day.day_index)+1, "day_id": day.id+"_", "date": day.date, "weekday": day.weekday, "type": "Regular", "client_name": day.client_name, "project_name": day.project_name, "hours": "0", "notes": ""});' } 
+      %span.pull-right.glyphicon.glyphicon-plus
+  .col-md-2
+    %select#type{ :name => "time_filter[time_filter_status]" }
+      %option{:value => 1}= "Regular"
+      %option{:value => 2}= "Holiday"
+      %option{:value => 3}= "Holiday Worked"
+      %option{:value => 4}= "Comp Bank"
+      %option{:value => 5}= "Comp Taken"
+      %option{:value => 6}= "Medical Leave"
+      %option{:value => 7}= "Marriage"
+      %option{:value => 8}= "Maternity"
+      %option{:value => 9}= "Vacation"
+      %option{:value => 10}= "Study"
+      %option{:value => 11}= "Overtime"
+  .col-md-2
+    %input.form-control.small_input#client_name{ "type" => "text", "ng-model" => "day.client_name"  }
+  .col-md-2
+    %input.form-control.small_input#project_name{ "type" => "text", "ng-model" => "day.project_name" }
+  .col-md-1
+    %input.form-control.tiny_input#hours{ "type" => "text", "ng-model" => "day.hours" }
+  .col-md-2
+    %input.form-control.small_input#notes{ "type" => "text", "placeholder" => "Enter comments here" }  
+  .col-md-1.text-center
+    %span.glyphicon.glyphicon-calendar
