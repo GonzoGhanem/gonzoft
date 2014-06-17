@@ -1,0 +1,19 @@
+%div
+  %h3 System Users
+  %a.btn.btn-success{"ng-show" => "has_role(admin) || has_role(staff)", "ng-hide" => "addingNew", "ng-click" => "addNew()"} Add new user
+
+  %table#users.table.table-hover
+    %thead
+      %th #
+      %th Name
+      %th Email
+      %th{colspan: "2"} Action
+    %tbody
+      %tr{"ng-repeat" => "(index, user) in users"}
+        %td {{index + 1}}
+        %td {{user.name}}
+        %td {{user.email}}
+        %td
+          %a{"ng-click" => "edit(user)"} Edit
+        %td
+          %a{"ng-click" => "delete(user)"} Delete  
