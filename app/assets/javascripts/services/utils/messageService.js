@@ -4,7 +4,6 @@ angular.module('messageService', [])
         var queue = [], currentMessage = '';
   
         $rootScope.$on('$routeChangeSuccess', function() {
-            debugger;
             if (queue.length > 0) 
                 currentMessage = queue.shift();
             else
@@ -16,7 +15,6 @@ angular.module('messageService', [])
                 queue.push(message);
             },
             get: function() {
-                debugger;
                 return currentMessage;
             }
         };

@@ -1,6 +1,6 @@
 %div
 	%h1 Listing Clients
-	%a.btn.btn-success.btn-primary{"ng-show" => "has_role(admin) || has_role(staff)", href: "#/client/new"} Add new
+	%a.btn.btn-success.btn-primary{"ng-show" => "isAdmin() || isStaff()", href: "#/client/new"} Add new
 
 %table#clients.table.table-hover
 	%thead

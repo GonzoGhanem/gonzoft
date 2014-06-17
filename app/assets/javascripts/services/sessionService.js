@@ -9,7 +9,7 @@ angular.module('sessionService', [])
             login: function(email, password) {
                 return $http.post('/api/sessions', {user: {email: email, password: password} })
                     .then(function(response) {
-                        service.currentUser = response.data.user;
+                        service.currentUser = response.data.user_create;
                         if (service.isAuthenticated()) {
                             $location.path('/record');
                         }

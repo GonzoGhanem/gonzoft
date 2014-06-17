@@ -1,6 +1,6 @@
 %div
 	%h1 Listing Skills
-	%a.btn.btn-success{"ng-show" => "has_role(admin) || has_role(staff)", "ng-hide" => "addingNew", "ng-click" => "addNew()"} Add new
+	%a.btn.btn-success{"ng-show" => "isAdmin() || isStaff()", "ng-hide" => "addingNew", "ng-click" => "addNew()"} Add new
 	%form.form-inline{name: "addNewSkill", "ng-show" => "addingNew"}
 		.form-group
 			%label.sr-only{for: "newSkillName"} Name

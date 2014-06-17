@@ -1,6 +1,6 @@
 %div
   %h3 System Users
-  %a.btn.btn-success{"ng-show" => "has_role(admin) || has_role(staff)", "ng-hide" => "addingNew", "ng-click" => "addNew()"} Add new user
+  %a.btn.btn-success{"ng-show" => "isAdmin() || isStaff()", "ng-hide" => "addingNew", "ng-click" => "addNew()"} Add new user
 
   %table#users.table.table-hover
     %thead

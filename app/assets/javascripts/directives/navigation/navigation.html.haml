@@ -19,9 +19,9 @@
         %li
           %a{href: "#/clients"} Clients
         %li
-          %a{href: "#/users/index", "ng-show" => "has_role(admin)"} Admin
+          %a{href: "#/users/index", "ng-show" => "isAdmin()"} Admin
         %li
-          %a{href: "#/skills/index", "ng-show" => "has_role(admin)"} Skills
+          %a{href: "#/skills/index", "ng-show" => "isStaff() || isAdmin()"} Skills
         %li.dropdown
           %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown"} 
             My profile

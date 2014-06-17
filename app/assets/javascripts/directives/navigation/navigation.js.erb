@@ -5,11 +5,23 @@ return {
   templateUrl: '<%= asset_path("directives/navigation/navigation.html") %>',
   // templateUrl: '/assets/directives/navigation/navigation.html.haml',
   controller: ['$scope', '$filter','Session', function($scope, $filter){
-    $scope.has_role = function(role){
+    $scope.isAdmin = function(){
       if($scope.models.user) {
-        return !!$filter('filter')($scope.models.user.roles, role, true).length;
+        return !!$filter('filter')($scope.models.user.roles, "admin", true).length;
       }
     }
+    $scope.isStaff = function(){
+      if($scope.models.user) {
+        return !!$filter('filter')($scope.models.user.roles, "staff", true).length;
+      }
+    }
+    
+    // $scope.has_role = function(role){
+    //   if($scope.models.user) {
+    //     debugger;
+    //     return !!$filter('filter')($scope.models.user.roles, role, true).length;
+    //   }
+    // }
     $("#bs-example-navbar-collapse-1").collapse('show');
   }]
 };
