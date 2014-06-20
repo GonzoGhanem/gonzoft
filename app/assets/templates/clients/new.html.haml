@@ -1,0 +1,30 @@
+%div
+  %h1 New Client
+
+%form{name: "clientNewForm", role: "form"}
+  .row
+    .form-group.col-md-4
+      %label{for: "client-name"} Name
+      %input#client-name.form-control{type: "text", "ng-model" => "client.name", placeholder: "Enter name", required: true}
+    .form-group.col-md-3
+      %label{for: "client-phone"} Phone
+      %input#client-phone.form-control{type: "text", "ng-model" => "client.phone"}
+  .row
+    .form-group.col-md-4
+      %label{for: "client-address"} Address:
+      %input#client-address.form-control{type: "text", "ng-model" => "client.address"}
+    .form-group.col-md-3
+      %label{for: "client-city"} City:
+      %input#client-city.form-control{type: "text", "ng-model" => "client.city"}
+    .form-group.col-md-2
+      %label{for: "client-state"} State:
+      %input#client-state.form-control{type: "text", "ng-model" => "client.state"}
+    .form-group.col-md-3
+      %label{for: "client-country"} Country:
+      %input#client-country.form-control{type: "text", "ng-model" => "client.country"}
+  .row
+    .form-group.col-md-8
+      %textarea#client-information.form-control{rows: "4", "ng-model" => "client.information", placeholder: "Information"}
+  .row
+    %button.btn.btn-large.btn-success{type: "submit", "ng-click" => "saveClient()", "ng-disabled" => "clientNewForm.$invalid"} Save
+    %a.btn.btn-link.btn-large{href: "#/clients"} Cancel

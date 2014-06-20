@@ -1,0 +1,43 @@
+%nav.navbar.navbar-default.navbar-fixed-top{"ng-if" => "sessionHandler.isAuthenticated()", "role" => "navigation"}
+  .container-fluid
+    .navbar-header
+      %button.navbar-toggle{type: "button", "data-toggle" => "collapse", "data-target" => "#bs-example-navbar-collapse-1"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand{href: "#"}
+        %span.glyphicon.glyphicon-globe &nbsp;Gonzoft
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      %ul.nav.navbar-nav.pull-right
+        %li
+          %img#navigation_image{"ng-src" => "/images/{{models.user.name}}", width: "40px", height: "40px", "onerror" => "if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"}
+        %li
+          %p.navbar-text.navbar-left {{models.user.name}}
+        %li
+          .navbar.divider-vertical
+        %li
+          %a{href: "#/clients"} Clients
+        %li
+          %a{href: "#/users/index", "ng-show" => "isAdmin()"} Admin
+        %li
+          %a{href: "#/skills/index", "ng-show" => "isStaff() || isAdmin()"} Skills
+        %li.dropdown
+          %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown"} 
+            My profile
+            %b.caret 
+          %ul.dropdown-menu
+            %li
+              %a{href: "#/user/profile"} User profile
+            %li.divider
+            %li
+              %a{href: "#/user/skills"} My skills
+            %li.divider
+            %li
+              %a{href: "#"} My project
+        %li
+          %a.nav{href: "#/time/index"} Time Tracker
+        %li 
+          %a.nav{href: "#/user/options"} More Options
+        %li
+          %a.nav{href: "#/", "ng-click" => "logout()"} Logout

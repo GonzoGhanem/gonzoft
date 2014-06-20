@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
 
   	accepts_nested_attributes_for :roles, :user_skills
 
+    validates_uniqueness_of :name, :email
+
   	def updateRoles(new_role_id)
   		self.roles.delete_all
   		self.roles.push(Role.find(new_role_id))

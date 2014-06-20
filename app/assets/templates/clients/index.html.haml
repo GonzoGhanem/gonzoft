@@ -1,0 +1,23 @@
+%div
+	%h1 Listing Clients
+	%a.btn.btn-success.btn-primary{"ng-show" => "isAdmin() || isStaff()", href: "#/client/new"} Add new
+
+%table#clients.table.table-hover
+	%thead
+		%th #
+		%th Name
+		%th Information
+		%th City
+		%th State
+		%th{colspan: "2"} Actions
+	%tbody
+		%tr{"ng-repeat" => "(index, client) in clients"}
+			%td {{index + 1}}
+			%td {{client.name}}
+			%td {{client.information}}
+			%td {{client.city}}
+			%td {{client.state}}
+			%td
+				%a{"ng-click" => "edit(client)"} Edit
+			%td
+				%a{"ng-click" => "delete(client)"} Delete
