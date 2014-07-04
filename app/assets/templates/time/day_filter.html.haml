@@ -1,0 +1,27 @@
+.content.container
+  %ol.breadcrumb
+    %li
+      %span.glyphicon.glyphicon-home
+      %a{href: "/#/"} Home
+    %li
+      %a{href: "/#/time"} Time Tracker
+    %li.active
+      Index
+  %p
+    %h3
+      Time Tracker for {{models.user.name}}
+  .row.clearfix.well.custom_well#date_filter
+    .col-md-4
+      %p
+        Showing
+        %select{ "id" => "timelapse","ng-options" => "timelapse.name for timelapse in timelapses", "ng-model" => "standardTimelapse", "ng-change" => "refreshTimetrack()" }
+        %select{ "id" => "timeperiod", "ng-options" => "timeperiod.name for timeperiod in timeperiods", "ng-model" => "standardPeriod", "ng-change" => "refreshTimetrack()" }
+    .col-md-2
+      Uncompleted
+      %span.badge#uncompleted_days
+        {{ getUncompleted() }}
+    .col-md-2.text-right
+      Find Date
+    .col-md-4
+      %input.form-control.small_input{ "type" => "text", "placeholder" => "Search"}
+  %hr
