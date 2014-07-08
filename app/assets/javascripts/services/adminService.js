@@ -38,9 +38,20 @@ angular.module('adminService', [])
                         redirect();
                     });                
             },
+            getAllPositions: function(){
+                return $http({method: 'get', url:'/api/positions/index'})
+                    .then(function(response) {
+                        service.positions = response.data.positions;
+                        return service.positions;
+                    },
+                    function(response){
+                        redirect();
+                    });                
+            },
             users: null,
             roles: null,
-            skills: null
+            skills: null,
+            positions: null
 
         };
         return service;

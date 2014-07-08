@@ -1,4 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
+  require 'debugger'
   before_filter :authenticate_user!, :except => [:create, :show]
 
   def index
@@ -34,6 +35,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user = User.find(params[:id])
     @user.updateRoles(params[:user][:roles][0][:id])
     @user.update(user_params)
+
     if @user.valid?
       render json: @user
     else
@@ -49,6 +51,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :email, :password, :password_confirmation, :roles_attributes => :all )
+    params.require(:user).permit(:id, :name, :email, :password, :password_confirmation, :position_id , :roles_attributes => :all )
   end
 end

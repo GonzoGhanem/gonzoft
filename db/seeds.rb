@@ -11,6 +11,10 @@ User.delete_all
 Role.delete_all
 Client.delete_all
 Skill.delete_all
+Position.delete_all
+["Dev Jr", "Dev Ssr 2", "Dev Ssr 1", "Dev Sr 2", "Dev Sr 1", "Team Lead", "Solution Manager", "QA Jr", "QA Ssr 2", "QA Ssr 1", "QA Sr 2", "QA Sr 1", "QA Lead"].each do |position| 
+	Position.create(name: position)
+end
 Role.create(name: 'admin')
 Role.create(name: 'staff')
 Role.create(name: 'employee')

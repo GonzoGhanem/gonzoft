@@ -6,6 +6,6 @@
                 %select.input-small{"ng-model" => "user_skill.skill_id", "ng-options" => "skill.id as skill.name for skill in availableSkills"}
                     %option{value: "0"}Select Skill
                 %rating{"ng-model" => "user_skill.years", "max" => "6", "readonly" => "isReadonly", "o-hover" => "hoveringOver(value)", "on-leave" => "overStar = null"} {{user_skill.years}} Experience
-                %a.btn.btn-tiny.btn-danger{"ng-click" => "deleteSkill(user_skill.id"} X
+                %a.btn.btn-tiny.btn-danger{"ng-click" => "deleteSkill(user_skill.id)"} X
             %a.btn.btn-tiny.btn-success{"ng-click" => "addSkill()"} +
             %input.btn.btn-large.btn-primary{type: "submit", "ng-click" => "updateSkills()", "ng-disabled" => "processing", value: "Update Skills"}

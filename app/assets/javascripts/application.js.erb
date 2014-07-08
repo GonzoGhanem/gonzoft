@@ -129,6 +129,9 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
         resolve: {
           roles: ['Admin', function(Admin){
             return Admin.getRoles();
+          }],
+          positions: ['Admin', function(Admin){
+            return Admin.getAllPositions();
           }]
         }
       });
