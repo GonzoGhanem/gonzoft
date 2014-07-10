@@ -1,5 +1,5 @@
 %div{ "ng-include" => true, "src" => "'#{asset_path('time/day_filter.html.haml')}'" } 
 %div{ "ng-include" => true, "src" => "'#{asset_path('time/day_header.html.haml')}'" }
-%div{ "data-ng-repeat" => "day in timetrack.days | orderBy:'date':reverse"}
+%div{ "data-ng-repeat" => "day in timetrack.days | orderBy:'time':reverse"}
   %div{ "ng-include" => true, "src" => "'#{asset_path('time/day.html.haml')}'" }
 %div{ "ng-include" => true, "src" => "'#{asset_path('time/days_summary.html.haml')}'" }

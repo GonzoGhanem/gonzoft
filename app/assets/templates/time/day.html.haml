@@ -8,11 +8,11 @@
     %a{ :href => "", "ng-click" => "removeDay(day)", "ng-show" => "day.isExtra", "class" => "ng-hide"} 
       %span.pull-right.glyphicon.glyphicon-trash
   .col-md-2
-    %select{ "ng-options" => "daytype.name for daytype in daysType", "ng-model" => "standardDayType", "ng-change" => "" }
+    %select{ "id" => "daytype_dropdown_" + "{{day.id}}", "ng-options" => "daytype.name for daytype in daysType", "ng-model" => "selectedDayType", "ng-change" => "setDayType(day, selectedDayType)" }
   .col-md-2
-    %input.form-control.small_input#client_name{ "type" => "text", "ng-model" => "day.client_name"  }
+    %select{ "id" => "client_dropdown_" + "{{day.id}}", "ng-options" => "client.name for client in clients", "ng-model" => "selectedClient", "ng-change" => "setClientProjects(day, selectedClient)" }
   .col-md-2
-    %input.form-control.small_input#project_name{ "type" => "text", "ng-model" => "day.project_name" }
+    %select{ "id" => "project_dropdown_" + "{{day.id}}", "ng-options" => "project.name for project in projects", "ng-model" => "selectedProject", "ng-change" => "setProject(day)" }
   .col-md-1
     %input.form-control.tiny_input#hours{ "type" => "text", "ng-model" => "day.hours" }
   .col-md-2
