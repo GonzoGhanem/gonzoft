@@ -8,6 +8,7 @@ gem 'cancan'
 gem 'rolify'
 gem 'pry'
 gem 'active_model_serializers'
+gem 'debugger'
 
 group :production do
   gem 'rails_12factor'

@@ -110,7 +110,7 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
         controller: TimeCtrl,
         resolve: {
           time: ['Time', function(Time){
-            return Time.getTimeTracker();
+            return Time.getTimeTracker()
           }]
         }
       })
@@ -119,7 +119,7 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
         controller: TimeCtrl,
         resolve: {
           time: ['Time', function(Time){
-            return Time.getTimeTracker();
+            return Time.getTimetracker()
           }]
         }
       }) 
