@@ -2,7 +2,8 @@ class Api::V1::SkillsController < Api::V1::BaseController
   before_filter :authenticate_user!
 
   def index
-      render :json =>{:info => "Skills", :skills => Skill.all}, :status => 200
+      # render :json =>{:info => "Skills", :skills => Skill.all}, :status => 200
+      render json: Skill.all, status: 200
   end
 
   def create
@@ -13,6 +14,11 @@ class Api::V1::SkillsController < Api::V1::BaseController
     else
       render :json =>{:errors => @skill.errors}, :status => 409
     end
+  end
+
+  def destroy
+    Skill.destroy(params[:id])
+    render :json => "Skill deleted!", :status => 200
   end
 
   def updateUser

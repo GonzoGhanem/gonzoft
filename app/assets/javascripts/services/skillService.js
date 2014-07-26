@@ -12,6 +12,12 @@ angular.module('skillService', [])
                         return response.data;
                     });
             },
+            deleteSkill: function(skill) {
+                return $http.delete('/api/skills/' + skill.id)
+                    .then(function(response){
+                        return response.data;
+                    });
+            },
             updateUserSkill: function(userSkill) {
                 return $http.put('/api/skills/user', {id: userSkill.id, skill_id: userSkill.skill_id, user_id: userSkill.user_id, years: userSkill.years })
                     .then(function(response) {
