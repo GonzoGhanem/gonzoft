@@ -75,6 +75,9 @@ Radd::Application.routes.draw do
       match '/skills/removeFromUser' => 'skills#removeFromUser', :via => :put
       match '/clients/create' => 'clients#create', :via => :post
       match '/clients/index' => 'clients#index', :via => :get
+      match '/clients/:id' => 'clients#show', :via => :get
+      match '/client/:client_id/projects/' => 'projects#byClient', :via => :get
+      match '/client/:client_id/project/new' => 'projects#create', :via => :post
       match '/users/admin' => 'users#index', :via => :get
       match '/users/roles' => 'users#roles', :via => :get
       match '/users' => 'users#show', :via => :get

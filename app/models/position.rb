@@ -1,5 +1,6 @@
 class Position < ActiveRecord::Base
 
-	belongs_to :user
+	has_many :users
+	has_many :open_positions
 
 end

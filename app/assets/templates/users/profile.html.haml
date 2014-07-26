@@ -28,7 +28,7 @@
         .col-md-3{"ng-switch" => "isAdmin() || isStaff()"}
           .form-group{"ng-switch-when" => "true"}
             %label{for: "positions"} Position:
-            %select#positions{"ng-options" => "position.id as position.name for position in positions", "ng-model" => "user.position_id"}
+            %select#positions.form-control{"ng-options" => "position.id as position.name for position in positions", "ng-model" => "user.position_id"}
           .form-group{"ng-switch-default" => ""}
             %h3 
               %small Current title: 
@@ -36,7 +36,7 @@
         .col-md-3
           .form-group{"ng-show" => "isAdmin()"}
             %label{for: "roles"} Roles:
-            %select#roles{"ng-options" => "role.id as role.name for role in roles", "ng-model" => "user.roles[0].id", required: true}
+            %select#roles.form-control{"ng-options" => "role.id as role.name for role in roles", "ng-model" => "user.roles[0].id", required: true}
       .row
         .col-md-6
           .form-group
