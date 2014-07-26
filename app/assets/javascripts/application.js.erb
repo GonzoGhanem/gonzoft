@@ -21,7 +21,8 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
                                         'recordService', 
                                         'adminService', 
                                         'clientService', 
-                                        'skillService', 
+                                        'skillService',
+                                        'projectService', 
                                         'timeService', 
                                         '$strap.directives'])
   .config(['$httpProvider', function($httpProvider){
@@ -69,6 +70,24 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
       .when('/client/new', {
         templateUrl: '<%= asset_path("clients/new.html") %>',
         controller: ClientNewCtrl
+      })
+      .when('/client/:client_id/project/new', {
+        templateUrl: '<%= asset_path("clients/projects/new.html") %>',
+        controller: ProjectCtrl,
+        resolve: {
+          client: ['$route', 'Client', function($route, Client){
+            return Client.getById($route.current.params.client_id);
+          }],
+          projects: ['$route', 'Project', function($route, Project){
+            return Project.getProjectsByClient($route.current.params.client_id);
+          }],
+          positions: ['Admin', function(Admin){
+            return Admin.getAllPositions();
+          }],
+          users: ['Admin', function(Admin){
+            return Admin.getAllUsers();
+          }]
+        }
       })
       .when('/users/login', 
         {templateUrl: '<%= asset_path("users/login.html") %>', 
@@ -129,6 +148,9 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
         resolve: {
           roles: ['Admin', function(Admin){
             return Admin.getRoles();
+          }],
+          positions: ['Admin', function(Admin){
+            return Admin.getAllPositions();
           }]
         }
       });

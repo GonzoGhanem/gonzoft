@@ -11,6 +11,8 @@ class Api::V1::ClientsController < Api::V1::BaseController
   end
 
   def show
+    @client = Client.find(params[:id])
+    render json: @client, serializer: ShowClientSerializer
     # user_roles = current_user.nil? ? nil : current_user.roles
     # render :json => {:info => "Current User", :user => current_user, :roles => Role.all, :user_roles => user_roles  }, :status => 200
   end
@@ -35,6 +37,6 @@ class Api::V1::ClientsController < Api::V1::BaseController
   private
 
   def client_params
-    params.require(:client).permit(:name, :phone, :information, :city, :address, :state)
+    params.require(:client).permit(:name, :phone, :information, :city, :address, :state, :projects_attributes => :all )
   end
 end

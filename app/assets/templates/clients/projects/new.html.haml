@@ -1,0 +1,71 @@
+%ul.nav.nav-tabs#projectTabs{role: "tablist"}
+	%li.active
+		%a{"href"=>"#newProject", "role"=>"tab", "data-toggle"=>"tab"} New project
+	%li
+		%a{"href"=>"#list", "role"=>"tab", "data-toggle"=>"tab"} Projects
+	%li
+		%a{"href"=>"#info", "role"=>"tab", "data-toggle"=>"tab"} Client	
+
+.tab-content
+	.tab-pane.active#newProject
+		%div
+			%h1 New Project - {{newproject.name}}
+			%h4 Client: {{client.name}}
+
+		%form{name: "projectNewForm", role: "form"}
+			.row
+				.form-group.col-md-9
+					%a#add-open-position.btn.btn-success.pull-right{"ng-click" => "addOpenPosition()"} Add assignee
+			.row
+				.form-group.col-md-5
+					%label{for: "project-name"} Name
+					%input#project-name.form-control{type: "text", "ng-model" => "newproject.name", placeholder: "Enter name", required: true}
+
+				.form-group.col-md-2
+					%label{for: "project-start-date"} Start Date
+					%input#project-start-date.form-control{type: "date", "ng-model" => "newproject.startdate"}
+				.form-group.col-md-2
+					%label{for: "project-end-date"} End Date
+					%input#project-end-date.form-control{type: "date", "ng-model" => "newproject.enddate"}
+			.row{"ng-repeat" => "open_position in newproject.open_positions"}
+				.form-group.col-md-1
+				.form-group.col-md-2
+					%label{for: "open_position_position_id"} Role
+					%select.form-control{"ng-model" => "open_position.position_id", "ng-options" => "position.id as position.name for position in availablePositions"}
+				.form-group.col-md-2
+					%label{for: "open_position_user_id"} Assignee
+					%select.form-control{"ng-model" => "open_position.user_id", "ng-options" => "user.id as user.name for user in availableUsers"}
+				.form-group.col-md-2
+					%label{for: "open_position_start_date"} Start Date
+					%input#open_position_start_date.form-control{type: "date", "ng-model" => "open_position.start_date"}
+				.form-group.col-md-2
+					%label{for: "open_position_end_date"} End Date
+					%input#open_position_end_date.form-control{type: "date", "ng-model" => "open_position.end_date"}	
+			.row
+				.form-group.col-md-7
+				.form-group.col-md-2
+					%button.btn.btn-large.btn-success{type: "submit", "ng-click" => "saveProject()", "ng-disabled" => "projectNewForm.$invalid || saving"} Save
+					%a.btn.btn-link.btn-large{href: "#/clients"} Cancel
+	.tab-pane#list
+		%div
+			%h1 Listing {{client.name}}'s projects
+		
+		%div.col-md-12.panel-default{"ng-repeat" => "(index, project) in client.projects", "data-role" => "collapsible"}
+			.panel-heading{id: "expand-{{project.id}}", "ng-click" => "showContent(project.id)"}
+				{{project.name}}
+			.panel-body{id: "content-{{project.id}}", "style" => "display: none;"} 
+				.row{"ng-repeat" => "(index, open_position) in project.open_positions"}
+					.form-group.col-md-3
+						%label{for: "open_position_position_id"} Role
+						%select.form-control{"ng-model" => "open_position.position_id", "ng-options" => "position.id as position.name for position in availablePositions"}
+					.form-group.col-md-3
+						%label{for: "open_position_user_id"} Assignee
+						%select.form-control{"ng-model" => "open_position.assignments[0].user_id", "ng-options" => "user.id as user.fullname for user in availableUsers"}
+					.form-group.col-md-3
+						%label{for: "open_position_start_date"} Start Date
+						%input#open_position_start_date.form-control{type: "date", "ng-model" => "open_position.assignments[0].start_date"}
+					.form-group.col-md-3
+						%label{for: "open_position_end_date"} End Date
+						%input#open_position_end_date.form-control{type: "date", "ng-model" => "open_position.assignments[0].end_date"}	
+
+	.tab-pane#info

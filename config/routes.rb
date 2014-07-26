@@ -69,12 +69,16 @@ Radd::Application.routes.draw do
       #resources :time, only: [:show]
       resources :users, only: [:create]
       match '/skills/index' => 'skills#index', :via => :get
+      match '/positions/index' => 'positions#index', :via => :get
       match '/skills' => 'skills#create', :via => :post
       match '/skills/:id' => 'skills#destroy', :via => :delete
       match '/skills/user' => 'skills#updateUser', :via => :put
       match '/skills/removeFromUser' => 'skills#removeFromUser', :via => :put
       match '/clients/create' => 'clients#create', :via => :post
       match '/clients/index' => 'clients#index', :via => :get
+      match '/clients/:id' => 'clients#show', :via => :get
+      match '/client/:client_id/projects/' => 'projects#byClient', :via => :get
+      match '/client/:client_id/project/new' => 'projects#create', :via => :post
       match '/users/admin' => 'users#index', :via => :get
       match '/users/roles' => 'users#roles', :via => :get
       match '/users' => 'users#show', :via => :get

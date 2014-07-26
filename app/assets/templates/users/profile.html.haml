@@ -25,23 +25,31 @@
                   .progress-bar.progress-bar-success{role: "progressbar", "aria-valuenow" => "{{progress}}", "aria-valuemin" => "0", "aria-valuemax" => "100", style: "witdh: {{progress}}%"}
                     %span {{progress}}%
       .row
-        .col-md-4
+        .col-md-3{"ng-switch" => "isAdmin() || isStaff()"}
+          .form-group{"ng-switch-when" => "true"}
+            %label{for: "positions"} Position:
+            %select#positions.form-control{"ng-options" => "position.id as position.name for position in positions", "ng-model" => "user.position_id"}
+          .form-group{"ng-switch-default" => ""}
+            %h3 
+              %small Current title: 
+              {{ user.position.name }}
+        .col-md-3
+          .form-group{"ng-show" => "isAdmin()"}
+            %label{for: "roles"} Roles:
+            %select#roles.form-control{"ng-options" => "role.id as role.name for role in roles", "ng-model" => "user.roles[0].id", required: true}
+      .row
+        .col-md-6
           .form-group
             %label{for: "name"} Name (to be displayed):
             %input.form-control.input-large#name{type: "text", placeholder: "Name", "ng-model" => "user.name", required: true}
       .row
-        .col-md-4
+        .col-md-6
           .form-group
             %label{for: "email"} Email (login):
             %input.form-control.input-large#email{type: "email", placeholder: "Email address", "ng-model" => "user.email", required: true}
       .row
-        .col-md-4
+        .col-md-6
           .form-group
             %label{for: "password"} Password:
             %input.form-control.input-large#password{type: "email", placeholder: "Password", "ng-model" => "user.password"}
-      .row
-        .col-md-4
-          .form-group
-            %label{for: "roles"} Roles:
-            %select{"ng-options" => "role.id as role.name for role in roles", "ng-model" => "models.user.roles[0].id", required: true}
       %button.btn.btn-large.btn-primary{type: "submit", "ng-click" => "updateProfile(user)", "ng-disabled" => "profileUpdate.$invalid || processing"} Update my info
