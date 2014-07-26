@@ -40,6 +40,8 @@ GEM
     cancan (1.6.10)
     coderay (1.1.0)
     columnize (0.8.9)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     daemons (1.1.9)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
