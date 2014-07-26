@@ -84,6 +84,8 @@ Radd::Application.routes.draw do
       match '/time/index' => 'time#index', :via => :get
       match '/time/save' => 'time#save', :via => :post
       match '/time/show' => 'time#show', :via => :get
+      match '/time/filter' => 'time#filter', :via => :post 
+      match '/time/getNextId' => 'time#getNextId', :via => :post
     end
   end
 

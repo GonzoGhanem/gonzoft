@@ -80,7 +80,7 @@ function FileUploadCtrl($scope) {
     function uploadProgress(evt) {
         $scope.$apply(function(){
             if (evt.lengthComputable) {
-                $scope.progress = Math.round(evt.loaded * 100 / evt.total)
+                $scope.progress = Math.round(evt.loaded * 100 / evt.total);
             } else {
                 $scope.progress = 'unable to compute'
             }

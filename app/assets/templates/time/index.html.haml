@@ -1,43 +1,5 @@
-.content
-  %ol.breadcrumb
-    %li
-      %span.glyphicon.glyphicon-home
-      %a{href: "/#/"} Home
-    %li
-      %a{href: "/#/time"} Time Tracker
-    %li.active
-      Index
-  %p
-    %h3
-      Time Tracker for {{models.user.name}}
-  #date_filter.form-horizontal
-    %p
-      Show days considering
-      %select{ :name => "time_filter[time_filter_status]" }
-        %option{:value => 1}= "This Month"
-        %option{:value => 2}= "Last Month"
-        %option{:value => 3}= "This Week"
-        %option{:value => 4}= "Last Week"
-      / .well
-      /   #datetimepicker1.input-append.date
-      /     %input{ "data-format" => "dd/MM/yyyy hh:mm:ss"}
-      /     %span.add-on
-      /       %i{ "data-time-icon" => "icon-time", "data-date-icon" => "icon-calendar" }
-      /   #datetimepicker.input-append.date
-      /     %input{ "data-format" => "dd/MM/yyyy hh:mm:ss", "type" => "text" }
-      /       %span.add-on
-      /         %i{ "data-time-icon"=>"icon-time", "data-date-icon"=>"icon-calendar" }
-
-  /  :javascript
-  /    $(function() { $('#datetimepicker1').datetimepicker({ language: 'pt-BR' }); });
-
-  / #example
-  /   %h3
-  /     Countries
-  /   %ul
-  /     %li{ "ng-repeat" => "country in countries"}
-  /       {{country.name}} has population of {{country.population}}
-  /   %hr
-  /   World's population: {{population}} millions
-
-    
+%div{ "ng-include" => true, "src" => "'#{asset_path('time/day_filter.html.haml')}'" } 
+%div{ "ng-include" => true, "src" => "'#{asset_path('time/day_header.html.haml')}'" }
+%div{ "data-ng-repeat" => "day in timetrack.days | orderBy:'time':reverse"}
+  %div{ "ng-include" => true, "src" => "'#{asset_path('time/day.html.haml')}'" }
+%div{ "ng-include" => true, "src" => "'#{asset_path('time/days_summary.html.haml')}'" }

@@ -9,7 +9,7 @@ angular.module('sessionService', [])
             login: function(email, password) {
                 return $http.post('/api/sessions', {user: {email: email, password: password} })
                     .then(function(response) {
-                        service.currentUser = response.data.user;
+                        service.currentUser = response.data.user_create;
                         if (service.isAuthenticated()) {
                             $location.path('/record');
                         }
@@ -29,13 +29,7 @@ angular.module('sessionService', [])
             register: function(name, email, password, confirm_password) {
                 return $http.post('/api/users', {user: {name: name, email: email, password: password, password_confirmation: confirm_password} })
                 .then(function(response) {
-                    service.currentUser = response.data;
-                    if (service.isAuthenticated()) {
-                        $location.path('/record');
-                    }
-                    if(service.currentUser) {
-                            service.currentUser.roles = response.data.user_roles;
-                        }
+                    service.currentUser = response.data.user_create;
                     return service.currentUser;
                 });
             },

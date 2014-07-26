@@ -1,0 +1,47 @@
+%div{"ng-controller" => "UsersCtrl"}
+  %h2.auth-form-heading {{user.name}}'s public profile
+  %div
+    %form{name: "profileUpdate", role: "form"}
+      .form-group
+        %label{for: "fileToUpload"} Add or modify your profile picture:
+        .container-fluid
+          .row-fluid{"ng-controller" => "FileUploadCtrl"}
+            .col-md-2
+              %img#pictureToShow{"ng-src" => "/images/{{models.user.name}}", width: "100px", height: "100px", "onerror" => "if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"}
+            .col-md-10
+              %input#fileToUpload{type: "file", accept:"image/*", multiple: true, "ng-model-instant" => true, "onchange" => "angular.element(this).scope().setFiles(this)"}
+              .dropbox#dropbox{"ng-class" => "dropClass"}
+                %span {{dropText}}
+              #fileLength{"ng-show" => "files.length"}
+                %div{"ng-repeat" => "file in files.slice(0)"}
+                  %span
+                    %strong Uploading File:
+                    {{file.webkitRelativePath || file.name}}
+                  (
+                  %span{"ng-switch" => "file.size > 1024*1024"}
+                    %span{"ng-switch-when" => "true"} {{ file.size /1024 /1024 | number:2}} MB
+                    %span{"ng-switch-default" => ""} {{ file.size /1024 | number:2}} kB
+                .progress.progress-bar-success{"ng-show" => "progressVisible"}
+                  .progress-bar.progress-bar-success{role: "progressbar", "aria-valuenow" => "{{progress}}", "aria-valuemin" => "0", "aria-valuemax" => "100", style: "witdh: {{progress}}%"}
+                    %span {{progress}}%
+      .row
+        .col-md-4
+          .form-group
+            %label{for: "name"} Name (to be displayed):
+            %input.form-control.input-large#name{type: "text", placeholder: "Name", "ng-model" => "user.name", required: true}
+      .row
+        .col-md-4
+          .form-group
+            %label{for: "email"} Email (login):
+            %input.form-control.input-large#email{type: "email", placeholder: "Email address", "ng-model" => "user.email", required: true}
+      .row
+        .col-md-4
+          .form-group
+            %label{for: "password"} Password:
+            %input.form-control.input-large#password{type: "email", placeholder: "Password", "ng-model" => "user.password"}
+      .row
+        .col-md-4
+          .form-group
+            %label{for: "roles"} Roles:
+            %select{"ng-options" => "role.id as role.name for role in roles", "ng-model" => "models.user.roles[0].id", required: true}
+      %button.btn.btn-large.btn-primary{type: "submit", "ng-click" => "updateProfile(user)", "ng-disabled" => "profileUpdate.$invalid || processing"} Update my info

@@ -1,0 +1,14 @@
+%form.auth-form{:name => "registrationForm"}
+    %h2.auth-form-heading Sign up
+    .alert.alert-warning{"ng-show" => "authReason"}
+        {{authReason}}
+    .alert.alert-error{"ng-show" => "authError"}
+        Review the following errors:
+        %div{"ng-repeat" => "(field, error) in authError"}
+            {{field}}: {{error[0]}}
+    %input.input-block-level{:type => "text", :placeholder => "User name", "ng-model" => "models.user.name", "required"=> true, "autofocus" => true}
+    %input.input-block-level{:type => "text", :placeholder => "Email address", "ng-model" => "models.user.email", "required"=> true}
+    %input.input-block-level{:type => "password", :placeholder => "Password", "ng-model" => "models.user.password", "required"=> true}
+    %input.input-block-level{:type => "password", :placeholder => "Confirm Password", "ng-model" => "models.user.confirm_password", "required"=> true}
+    %a.btn.btn-large.btn-primary.active{:type => "submit", "ng-click" => "register(models.user)", "ng-disabled" => "registrationForm.$invalid"} Create account
+    %a.btn.btn-default.btn-large.pull-right.active{:href => "#/users/login"} Back to login

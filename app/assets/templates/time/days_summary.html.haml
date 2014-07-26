@@ -1,0 +1,18 @@
+%hr
+.row.clearfix.well.custom_well#date_filter
+  .col-md-3
+    Total Hours for period
+    %span.badge#uncompleted_days
+      {{ getTotal() }}
+  .col-md-3
+    Extra Hours for period
+    %span.badge#extra_time
+      {{ getExtraTime() }}
+  .col-md-3
+    Total entries for period
+    %span.badge#extra_time
+      {{ getTotalEntries() }}
+  .col-md-3
+    Total extra entries for period
+    %span.badge#extra_time
+      {{ getTotalExtraEntries() }}

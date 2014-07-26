@@ -1,0 +1,8 @@
+%form.auth-form{:name => "loginForm"}
+	%h2.auth-form-heading Please sign in
+	%input.input-block-level{:type => "text", :tabindex => "1", :placeholder => "Email address", :required => true, "ng-model" => "user.email", :autofocus => true}
+	%input.input-block-level{:type => "password", :tabindex => "2", :placeholder => "Password", "ng-model" => "user.password", :required => true}
+	%label.checkbox
+		%input{:type => "checkbox", :value => "remember-me", :tabindex => "3"}Remember me
+	%a.btn.btn-primary.active{:type => "submit", :tabindex => "4", "ng-click" => "login(user)", "ng-disabled" => "loginForm.$invalid"} Login
+	%a.btn.btn-default{href: "#/users/register", :tabindex => "5"}Register

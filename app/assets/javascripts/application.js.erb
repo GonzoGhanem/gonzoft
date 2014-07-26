@@ -6,28 +6,15 @@
 //= require angular-resource
 //= require ui-bootstrap-tpls-0.11.0
 //= require angular-strap.min
-//= require services/adminService
-//= require services/clientService
-//= require services/recordService
-//= require services/sessionService
-//= require services/skillService
-//= require services/userService
-//= require services/timeService
-//= require controllers/app
-//= require controllers/admin
-//= require controllers/clients
-//= require controllers/profile
-//= require controllers/record
-//= require controllers/skills
-//= require controllers/users
-//= require controllers/userskills
-//= require controllers/fileupload
-//= require directives/navigation/navigation
-//= require directives/checklist-model/checklist-model
-//= require_self
+//= require_tree ./services/
+//= require_tree ./controllers/
+//= require_tree ./directives/
 //= require_tree .
+//= require_self
 
-var myApp = angular.module('gonzoft', [ 'ngRoute', 
+
+var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
+                                        'ngRoute', 
                                         'ui.bootstrap', 
                                         'userService', 
                                         'sessionService',
@@ -71,7 +58,7 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         controller: RecordCtrl
       })
       .when('/clients', {
-        templateUrl: '/clients/index.html',
+        templateUrl: '<%= asset_path("clients/index.html") %>',
         controller: ClientCtrl,
         resolve: {
           clients: ['Client', function(Client){
@@ -80,15 +67,15 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         }
       })
       .when('/client/new', {
-        templateUrl: '/clients/new.html',
+        templateUrl: '<%= asset_path("clients/new.html") %>',
         controller: ClientNewCtrl
       })
       .when('/users/login', 
-        {templateUrl: '/users/login.html', 
+        {templateUrl: '<%= asset_path("users/login.html") %>', 
         controller: UsersCtrl
       })
       .when('/users/index', 
-        {templateUrl: '/admin/users.html', 
+        {templateUrl: '<%= asset_path("admin/users.html") %>', 
         controller: AdminCtrl,
         resolve: {
           users: ['Admin', function(Admin){
@@ -97,11 +84,11 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         }
       })
       .when('/users/register', {
-        templateUrl:'/users/register.html',  
+        templateUrl:'<%= asset_path("users/register.html") %>',  
         controller:UsersCtrl
       })
       .when('/skills/index', {
-        templateUrl:'/admin/skills.html',  
+        templateUrl:'<%= asset_path("admin/skills.html") %>',  
         controller:SkillsCtrl,
         resolve: {
           skills: ['Admin', function(Admin){
@@ -110,7 +97,7 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         }
       })
       .when('/user/skills', {
-        templateUrl:'/users/skills.html', 
+        templateUrl:'<%= asset_path("users/skills.html") %>', 
         controller:UserSkillsCtrl,
         resolve: {
           skills: ['Admin', function(Admin){
@@ -123,7 +110,7 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         controller: TimeCtrl,
         resolve: {
           time: ['Time', function(Time){
-            return Time.getTimeTracker();
+            return Time.getTimeTracker()
           }]
         }
       })
@@ -132,12 +119,12 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
         controller: TimeCtrl,
         resolve: {
           time: ['Time', function(Time){
-            return Time.getTimeTracker();
+            return Time.getTimetracker()
           }]
         }
       }) 
       .when('/user/profile', {
-        templateUrl:'/users/profile.html', 
+        templateUrl:'<%= asset_path("users/profile.html") %>', 
         controller:ProfileCtrl,
         resolve: {
           roles: ['Admin', function(Admin){
@@ -151,7 +138,7 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
     $scope.models.user = null;
     
     $scope.messages = messages;
-
+    $scope.sessionHandler = Session;
     Session.requestCurrentUser().then(function(current_user) {
         $scope.models.user = current_user;
         //$scope.models.user.image = "/images/" + current_user.name;       
@@ -179,22 +166,6 @@ var myApp = angular.module('gonzoft', [ 'ngRoute',
     };
 
   }])
-  .directive('navigation', [function () {
-    return {
-      restrict: 'E',
-      templateUrl: '/assets/directives/navigation/navigation.html',
-      controller: ['$scope', '$filter','Session', function($scope, $filter, Session){
-        $scope.has_role = function(role){
-          if($scope.models.user) {
-            return !!$filter('filter')($scope.models.user.roles, role, true).length;
-          }
-        }
-        $("#bs-example-navbar-collapse-1").collapse('show');
-      }]
-    };
-
-  }])
-
   .factory('messages', function($rootScope) {
         
         var queueNext = [], currentMessage = {errors: '', success:'', warnings:''}, nextMessage = '';
