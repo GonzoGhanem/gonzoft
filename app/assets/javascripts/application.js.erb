@@ -114,15 +114,15 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
           }]
         }
       })
-      .when('/time/show', { 
-        templateUrl: '<%= asset_path("time/show.html") %>',
-        controller: TimeCtrl,
-        resolve: {
-          time: ['Time', function(Time){
-            return Time.getTimetracker()
-          }]
-        }
-      }) 
+      // .when('/time/show', { 
+      //   templateUrl: '<%= asset_path("time/show.html") %>',
+      //   controller: TimeCtrl,
+      //   resolve: {
+      //     time: ['Time', function(Time){
+      //       return Time.getTimetracker()
+      //     }]
+      //   }
+      // }) 
       .when('/user/profile', {
         templateUrl:'<%= asset_path("users/profile.html") %>', 
         controller:ProfileCtrl,

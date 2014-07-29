@@ -123,6 +123,13 @@ body {
   width: 50px !important;
 }
 
+.small_input_borderless {
+  height: 22px !important;
+  width: 100px !important;
+  border: 0px !important;
+  font-size: 14px !important;
+}
+
 .tiny_borderless {
   height: 22px !important;
   width: 75px !important;
@@ -145,6 +152,9 @@ body {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
 }
 
-.fixed_div {
-  
+.margin_10 {
+  margin-left: 10px;
+}
+
+.fixed_div {  
 }

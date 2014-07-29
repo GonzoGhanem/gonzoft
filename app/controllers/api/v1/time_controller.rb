@@ -10,7 +10,8 @@ class Api::V1::TimeController < Api::V1::BaseController
     date_from = params[:date_from]
     date_to = params[:date_to]
     user_id = params[:user_id]
-    timetrack = Timetrack.where(:user_id => user_id, :date => date_from..date_to)
+
+    timetrack = Timetrack.where(:user_id => user_id, :time => date_from..date_to, :deleted => false)
     render :json =>{:info => "Timetrack records from db #{timetrack.count}!", :timetrack => timetrack}, :status => 200
   end  
 
@@ -20,6 +21,7 @@ class Api::V1::TimeController < Api::V1::BaseController
       @updated = []
       timetrack_params.each do |day|
         day.delete("isFromServer")
+        day.delete("created_at")
         day_exists = Timetrack.where(:user_id => day["user_id"], :day_id => day["day_id"], :date => day["date"])
         if(day_exists.count == 1)
           temp_day = Timetrack.find_by(day_id: day["day_id"])    
@@ -27,12 +29,14 @@ class Api::V1::TimeController < Api::V1::BaseController
              day["client_name"] != temp_day["client_name"] ||
              day["project_name"] != temp_day["project_name"] ||
              day["hours"] != temp_day["hours"] ||
-             day["notes"] != temp_day["notes"]) 
+             day["notes"] != temp_day["notes"] || 
+             day["deleted"] != temp_day["deleted"])  
             @updated.push temp_day.update(hours: day["hours"], 
                             day_type: day["day_type"], 
                             client_name: day["client_name"], 
                             project_name: day["project_name"],
-                            notes: day["notes"])
+                            notes: day["notes"],
+                            deleted: day["deleted"])
           end
         else
           @created.push Timetrack.create(day)

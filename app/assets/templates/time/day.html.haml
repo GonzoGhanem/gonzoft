@@ -18,6 +18,12 @@
   .col-md-2
     %input.form-control.small_input#notes{ "type" => "text", "placeholder" => "Enter comments here", "ng-model" => "day.notes"}  
   .col-md-1.text-center
-    %span.pull-right.glyphicon.glyphicon-save{ "ng-show" => "day.isFromServer" }
-    %span.glyphicon.glyphicon-refresh
-    %span.glyphicon.glyphicon-calendar
+    %a{ "data-toggle" => "tooltip", "title" => "Show Day Info", :href => "", "ng-mouseenter" => "showAddedInfo(day)", "ng-show" => "day.isFromServer", "class" => "ng-hide", "tooltip-html-unsafe" => "{{htmlTooltip}}", "tooltip-placement" => "left" }   
+      %span.pull-right.glyphicon.glyphicon-floppy-saved
+
+    %a{ :href => "", "ng-click" => "refreshDay(day)" } 
+      %span.glyphicon.glyphicon-refresh
+    %a{ :href => "", "ng-click" => "replicateDay(day)" } 
+      %span.glyphicon.glyphicon-asterisk
+
+    /%input.form-control{ "type" => "text", "value" => "Click me!", "tooltip" => "See? Now click away...", "tooltip-trigger" => "focus", "tooltip-placement" => "right" }

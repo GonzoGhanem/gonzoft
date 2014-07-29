@@ -27,12 +27,21 @@
         %select{ "id" => "timelapse","ng-options" => "timelapse.name for timelapse in timelapses", "ng-model" => "standardTimelapse", "ng-change" => "getTimetrack()" }
         %select{ "id" => "timeperiod", "ng-options" => "timeperiod.name for timeperiod in timeperiods", "ng-model" => "standardPeriod", "ng-change" => "getTimetrack()" }
     .col-md-2
-      Uncompleted
-      %span.badge#uncompleted_days
-        {{ getUncompleted() }}
-    .col-md-2.text-right
-      Find Date
+      %p.input-group
+        %input.form-control.small_input_borderless{ "ng-change" => "datepickerChange(datepicker.from, datepicker.to)", "type" => "text", "datepicker-popup" => "{{datepicker.format}}", "ng-model" => "datepicker.from", "is-open" => "datepicker.from_opened", "datepicker-options" => "datepicker.dateOptions", "date-disabled" => "datepicker.disabled(date, mode)", "ng-required" => "true", "close-text" => "Close", "show-weeks" => "false" }
+        %a{ :href => "", "ng-click" => "datepicker.open_from($event)" } 
+          %span.glyphicon.glyphicon-calendar.margin_10
     .col-md-2
-      %input.form-control.small_input{ "type" => "text", "placeholder" => "Search"}
-
+      %p.input-group
+        %input.form-control.small_input_borderless{ "ng-change" => "datepickerChange(datepicker.from, datepicker.to)", "type" => "text", "datepicker-popup" => "{{datepicker.format}}", "ng-model" => "datepicker.to", "is-open" => "datepicker.to_opened", "datepicker-options" => "datepicker.dateOptions", "date-disabled" => "datepicker.disabled(date, mode)", "ng-required" => "true", "close-text" => "Close", "show-weeks" => "false" }
+        %a{ :href => "", "ng-click" => "datepicker.open_to($event)" } 
+          %span.glyphicon.glyphicon-calendar.margin_10
+    / .col-md-2
+    /   Uncompleted
+    /   %span.badge#uncompleted_days
+    /     {{ getUncompleted() }}
+    / .col-md-2.text-right
+    /   Find Date
+    / .col-md-2
+    /   %input.form-control.small_input{ "type" => "text", "placeholder" => "Search"}
   %hr
