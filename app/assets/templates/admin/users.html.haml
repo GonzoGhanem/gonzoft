@@ -14,6 +14,6 @@
         %td {{user.name}}
         %td {{user.email}}
         %td
-          %a{"ng-click" => "edit(user)"} Edit
+          %a{href: "#/user/profile/{{user.id}}"} Edit
         %td
           %a{"ng-click" => "delete(user)"} Delete  

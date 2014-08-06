@@ -7,7 +7,8 @@ angular.module('userService', [])
         }
         var service = {
             update: function(user) {
-                return $http.put('/api/users', {id: user.id, user: {name: user.name, email: user.email, password: user.password, roles: user.roles, position_id: user.position_id}  })
+                // return $http.put('/api/users', {id: user.id, user: {name: user.name, email: user.email, password: user.password, roles_attributes: user.roles, position_id: user.position_id}  })
+                return $http.put('/api/users', {user: user}  )
                     .then(function(response) {
                         service.currentUser = response.data.user;
                         if (service.isAuthenticated()) {
@@ -21,6 +22,13 @@ angular.module('userService', [])
 
             isAuthenticated: function(){
                 return !!service.currentUser;
+            },
+
+            getById: function(user_id) {
+                return $http.get('/api/users/' + user_id)
+                    .then(function(response){
+                        return response.data.user;
+                    })
             }
 
         };

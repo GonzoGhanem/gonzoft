@@ -1,10 +1,6 @@
 class UserSerializer < ActiveModel::Serializer
 
-  # def role_id
-  # 	object.roles.first.id
-  # end
-
-  attributes :id, :name, :email, :position_id
-  has_many :roles, :user_skills
+  attributes :id, :name, :email, :position_id, :phone, :full_name, :date_of_birth
+  has_many :roles, key: :roles_attributes
 
 end

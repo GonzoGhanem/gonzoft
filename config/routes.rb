@@ -80,6 +80,7 @@ Radd::Application.routes.draw do
       match '/client/:client_id/project/new' => 'projects#create', :via => :post
       match '/users/admin' => 'users#index', :via => :get
       match '/users/roles' => 'users#roles', :via => :get
+      match '/users/:id' => 'users#getById', :via => :get
       match '/users' => 'users#show', :via => :get
       match '/users' => 'users#update', :via => :put
       match '/users' => 'users#destroy', :via => :delete

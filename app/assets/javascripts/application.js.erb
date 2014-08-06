@@ -142,10 +142,13 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
           }]
         }
       }) 
-      .when('/user/profile', {
+      .when('/user/profile/:user_id', {
         templateUrl:'<%= asset_path("users/profile.html") %>', 
         controller:ProfileCtrl,
         resolve: {
+          selectedUser: ['$route','User', function($route, User){
+            return User.getById($route.current.params.user_id);
+          }],
           roles: ['Admin', function(Admin){
             return Admin.getRoles();
           }],
@@ -163,7 +166,6 @@ var myApp = angular.module('gonzoft', [ 'gonzoftNavbar',
     $scope.sessionHandler = Session;
     Session.requestCurrentUser().then(function(current_user) {
         $scope.models.user = current_user;
-        //$scope.models.user.image = "/images/" + current_user.name;       
         if($scope.models.user) {
           for(var role in $scope.models.user.roles){
             if($scope.models.user.roles[role].name == "admin"){

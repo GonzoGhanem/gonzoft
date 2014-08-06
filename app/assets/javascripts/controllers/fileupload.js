@@ -3,7 +3,7 @@
 function FileUploadCtrl($scope) {
     //============== DRAG & DROP =============
     var dropbox = document.getElementById("dropbox")
-    var filename = $scope.models.user.name
+    var filename = $scope.user.name
     $scope.dropText = 'Drop files here...'
 
     // init event handlers
@@ -88,14 +88,12 @@ function FileUploadCtrl($scope) {
     }
 
     function uploadComplete(evt) {
-        /* This event is raised when the server send back a response */
-        //console.log()
-        //console.log("================ responseText ==================")
-        //console.log(evt.target.responseText)
-        //console.log("================================================")
-        //console.log("yo");
-        $("#pictureToShow").attr("src", "/images/" + filename)
-        $("#navigation_image").attr("src", "/images/" + filename)
+        var d =  new Date();
+        $("#pictureToShow").attr("src", "/images/" + filename + "?" + d.getTime());
+        //Only update nav bar picture if logged in user is the same being edited
+        if ($scope.models.user.name == filename) {
+            $("#navigation_image").attr("src", "/images/" + filename + "?" + d.getTime());
+        }
     }
 
     function uploadFailed(evt) {

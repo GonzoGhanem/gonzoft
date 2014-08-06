@@ -2,6 +2,8 @@ class Api::V1::UsersController < Api::V1::BaseController
   require 'debugger'
   before_filter :authenticate_user!, :except => [:create, :show]
 
+
+
   def index
     if current_user.has_role?(:admin)
       render :json =>{:info => "users", :users => User.all}, :status => 200
@@ -11,7 +13,12 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def show
-    render json: current_user
+    render json: current_user, :serializer => UserShowSerializer
+  end
+
+  def getById
+    @user = User.find(params[:id])
+    render json: @user
   end
 
   def roles
@@ -32,8 +39,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def update
-    @user = User.find(params[:id])
-    @user.updateRoles(params[:user][:roles][0][:id])
+    @user = User.find(params[:user][:id])
     @user.update(user_params)
 
     if @user.valid?
@@ -41,7 +47,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     else
       render :json =>{:errors => @user.errors}, :status => 401
     end
-    # respond_with :api, User.update(current_user.id, user_params)
   end
 
   def destroy
@@ -51,6 +56,6 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:id, :name, :email, :password, :password_confirmation, :position_id , :roles_attributes => :all )
+    params.require(:user).permit(:id, :name, :email, :password, :password_confirmation, :position_id, :phone, :date_of_birth, :full_name , roles: [:id, :name] )
   end
 end

@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
 	rolify
-	# Include default devise modules. Others available are:
-	# :token_authenticatable, :confirmable,
-	# :lockable, :timeoutable and :omniauthable
+
 	devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -18,8 +16,4 @@ class User < ActiveRecord::Base
 
     validates_uniqueness_of :name, :email
 
-  	def updateRoles(new_role_id)
-  		self.roles.delete_all
-  		self.roles.push(Role.find(new_role_id))
-  	end
 end
