@@ -11,7 +11,7 @@
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.nav.navbar-nav.pull-right
         %li
-          %img#navigation_image{"ng-src" => "/images/{{models.user.name}}", width: "40px", height: "40px", "onerror" => "if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"}
+          %img#navigation_image{"ng-src" => "/images/{{models.user.name}}?", width: "40px", height: "40px", "onerror" => "if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"}
         %li
           %p.navbar-text.navbar-left {{models.user.name}}
         %li

@@ -36,7 +36,7 @@
         %label{for: "fileToUpload"} Add or modify your profile picture:
         .row{"ng-controller" => "FileUploadCtrl"}
           .col-md-2
-            %img#pictureToShow{"ng-src" => "/images/{{user.name}}", width: "50px", height: "50px", "onerror" => "if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"}
+            %img#pictureToShow{"ng-src" => "/images/{{user.name}}?", width: "50px", height: "50px", "onerror" => "if(this.src != '/images/default.jpeg') this.src='/images/default.jpeg';"}
           .col-md-6
             %input#fileToUpload{type: "file", accept:"image/*", multiple: true, "ng-model-instant" => true, "onchange" => "angular.element(this).scope().setFiles(this)"}
             .dropbox#dropbox{"ng-class" => "dropClass"}

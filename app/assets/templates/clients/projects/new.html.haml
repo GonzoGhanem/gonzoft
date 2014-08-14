@@ -27,14 +27,14 @@
 				.form-group.col-md-2
 					%label{for: "project-end-date"} End Date
 					%input#project-end-date.form-control{type: "date", "ng-model" => "newproject.enddate"}
-			.row{"ng-repeat" => "open_position in newproject.open_positions"}
+			.row{"ng-repeat" => "open_position in newproject.open_positions_attributes"}
 				.form-group.col-md-1
 				.form-group.col-md-2
 					%label{for: "open_position_position_id"} Role
 					%select.form-control{"ng-model" => "open_position.position_id", "ng-options" => "position.id as position.name for position in availablePositions"}
 				.form-group.col-md-2
 					%label{for: "open_position_user_id"} Assignee
-					%select.form-control{"ng-model" => "open_position.user_id", "ng-options" => "user.id as user.name for user in availableUsers"}
+					%select.form-control{"ng-model" => "open_position.user_id", "ng-options" => "user.id as user.full_name for user in availableUsers"}
 				.form-group.col-md-2
 					%label{for: "open_position_start_date"} Start Date
 					%input#open_position_start_date.form-control{type: "date", "ng-model" => "open_position.start_date"}
@@ -60,7 +60,7 @@
 						%select.form-control{"ng-model" => "open_position.position_id", "ng-options" => "position.id as position.name for position in availablePositions"}
 					.form-group.col-md-3
 						%label{for: "open_position_user_id"} Assignee
-						%select.form-control{"ng-model" => "open_position.assignments[0].user_id", "ng-options" => "user.id as user.fullname for user in availableUsers"}
+						%select.form-control{"ng-model" => "open_position.assignments[0].user_id", "ng-options" => "user.id as user.full_name for user in availableUsers"}
 					.form-group.col-md-3
 						%label{for: "open_position_start_date"} Start Date
 						%input#open_position_start_date.form-control{type: "date", "ng-model" => "open_position.assignments[0].start_date"}

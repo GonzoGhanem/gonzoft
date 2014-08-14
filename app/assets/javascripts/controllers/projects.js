@@ -3,7 +3,7 @@ function ProjectCtrl($scope, Project, client, projects, positions, users) {"use 
 	var createProject = function(){
 		$scope.newproject = {};
 		$scope.newproject.client_id = $scope.client.id;
-		$scope.newproject.open_positions = [];
+		$scope.newproject.open_positions_attributes = [];
 	};
 
 	$scope.availablePositions = positions;
@@ -38,7 +38,7 @@ function ProjectCtrl($scope, Project, client, projects, positions, users) {"use 
 
 
 	$scope.addOpenPosition = function(){
-		$scope.newproject.open_positions.push({project_id: $scope.newproject.project_id, user_id: "", position_id: "", start_date: "", end_date: ""})
+		$scope.newproject.open_positions_attributes.push({project_id: $scope.newproject.project_id, user_id: "", position_id: "", start_date: "", end_date: ""})
 	}
 
 }
