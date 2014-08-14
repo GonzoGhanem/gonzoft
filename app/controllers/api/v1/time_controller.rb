@@ -30,8 +30,10 @@ class Api::V1::TimeController < Api::V1::BaseController
              day["project_name"] != temp_day["project_name"] ||
              day["hours"] != temp_day["hours"] ||
              day["notes"] != temp_day["notes"] || 
-             day["deleted"] != temp_day["deleted"])  
-            @updated.push temp_day.update(hours: day["hours"], 
+             day["deleted"] != temp_day["deleted"])
+
+            @updated.push temp_day.update(
+                            hours: day["hours"], 
                             day_type: day["day_type"], 
                             client_name: day["client_name"], 
                             project_name: day["project_name"],
@@ -42,10 +44,19 @@ class Api::V1::TimeController < Api::V1::BaseController
           @created.push Timetrack.create(day)
         end
       end
-      render :json => {:info => "Successfully created #{@created.count} and updated #{@updated.count} timetrack records!"}, :status => 200
+
+      message = "Successfully created #{@created.count} and updated #{@updated.count} timetrack records!"
+      status = 200
+
+      if(@created.count == 0 && @updated.count == 0)
+        message = "Nothing was created or modified..."
+        status = 209
+      end
+      
+      render :json => { :info => message }, :status => status
     rescue Exception => e
-      puts e.message
-      puts e
+      message = "Exception saving the timetrack: #{e.message}!"
+      render :json => { :errors => message }, :status => 202
     end
   end
 

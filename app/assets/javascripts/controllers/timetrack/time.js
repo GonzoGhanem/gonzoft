@@ -7,11 +7,11 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
   // Vars definition  ////////////
   ////////////////////////////////
   var dayNamesShort = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-  var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   var totalAddedDays = 0
   var day_in_milisecs = 24 * 60 * 60 * 1000
   var custom_dates = false
   var diff_in_days = 0
+  $scope.dates_array = []
 
   ////////////////////////////////
   // Scope Arrays  ///////////////
@@ -88,7 +88,7 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
 
   $scope.datepicker.toggleMin = function() {
     $scope.datepicker.minDate = $scope.datepicker.minDate ? null : new Date()
-  };
+  }
   
   // Add a button and call this to clear both datepickers
   $scope.datepicker.clear = function() {
@@ -129,126 +129,101 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
   $scope.datepickerChange = function(datepickerFrom, datepickerTo) {
     if(typeof(datepickerFrom) !== 'undefined' || 
        typeof(datepickerTo) !== 'undefined' ) {
+      
       var diff_in_milisecs = $scope.datepicker.to - $scope.datepicker.from
       diff_in_days = Math.round(diff_in_milisecs/day_in_milisecs)+1
       
       if(diff_in_days > 100) {
-        var message = "Please modify the dates, your search is too big: "+diff_in_days+" days!"
-        $scope.messages.setCurrent("Errors", message)
-        //$scope.messages.setCurrent("Success", message)
+        var message = "Please modify the dates, your search is too big: " + diff_in_days + " days, " + (diff_in_days - 100) + " days more than the maximun!"
+        $scope.messages.setCurrent('warnings', message)
       } else if(diff_in_days > 0) {
-        var from = $scope.getFormattedDate($scope.datepicker.from)
-        var to = $scope.getFormattedDate($scope.datepicker.to)
         custom_dates = true
-        $scope.getTimetrack(from, to)
-        setTimeout(function() { custom_dates = false; }, 2000)
-      } 
+        $scope.getTimetrack()
+        setTimeout(function() { custom_dates = false; }, 1000)
+      } else {
+        var message = "Please modify the dates, your search incorrect. Starting date is after end date!"
+        $scope.messages.setCurrent('warnings', message)
+      }
     }
   }
-
 
 
   ////////////////////////////////
   // Timetrack Methods  //////////
   ////////////////////////////////
-  $scope.nextDay = function(x, timeperiod) {
 
-    var dayInMilisecs = day_in_milisecs // How many milisecs are in one day
-    var today = new Date()
-    var diff = (today.getDay() + 6) % 7 // Days to subtract to get last Monday
-    var day
+  $scope.processTimetrack = function(date_from, date_to) {
+    $scope.getDatesArray(date_from, date_to)
+    
+    $.each($scope.dates_array, function(){
+      $scope.addNewDay(new Date(this.milisecs_date), 
+                       this.is_extra, 
+                       this.day_from_server, 
+                       this.is_from_server)
+    })
 
-    if(timeperiod == "Day") {
-      day = new Date(today.getTime() + x * dayInMilisecs)
-    } else if(timeperiod == "Month") {
-      var monthDay = today.getDate()
-      var monthDiff = parseInt(monthDay/7)
-      var monthModif = ((monthDiff*7) - 1)
-      day = new Date(today.getTime() + (x - diff - monthModif) * dayInMilisecs)
-    } else {
-      day = new Date(today.getTime() + (x - diff) * dayInMilisecs) 
+    setTimeout(function(){ $scope.setDropDowns() }, 100)
+    setTimeout(function(){ 
+      $.each($scope.timetrack.days, function(){
+        $scope.setProject(this)
+      })
+    }, 100)
+  }
+
+  $scope.getDatesArray = function(date_from, date_to) {
+    $scope.dates_array = []
+    var diff_in_milisecs = date_to - date_from
+    var amount_of_dates_to_show = Math.round(diff_in_milisecs/day_in_milisecs)
+    
+    if(amount_of_dates_to_show < 1) 
+      return false
+
+    for(var i = 0; i < amount_of_dates_to_show; i++) {
+      var day = {}
+      var regular_day = true
+
+      day.current_day = date_from + (day_in_milisecs * i)
+      day.formated_date = new Date(date_from + (day_in_milisecs * i))
+      day.is_from_server = false
+      day.is_extra = false
+      day.day_from_server = {}
+
+      $.each($scope.daysFromServer, function(){
+        if(day.current_day == this.time) {
+          regular_day = false
+          day.is_from_server = true
+          day.day_from_server = this
+          if(this.isExtra == "t" || this.isExtra) {
+            day.is_extra = true
+          } else {
+            day.is_extra = false
+          }
+          $scope.pushDayToDaysArray(day)
+        }
+      })
+
+      if(regular_day)
+        $scope.pushDayToDaysArray(day)
     }
-    return day
+  }
+
+  $scope.pushDayToDaysArray = function(day) {
+    $scope.dates_array.push({ 
+      "milisecs_date": day.current_day,
+      "formated_date": day.formated_date,
+      "is_from_server": day.is_from_server, 
+      "is_extra": day.is_extra, 
+      "day_from_server": day.day_from_server}
+    )
   }
 
   $scope.cleanTimetrack = function(){
     $scope.timetrack.days = []
   }
 
-  $scope.getMonthDays = function(timelapse) {
-    var date = new Date()
-    var month = date.getMonth()
-    if (timelapse == "Last") month = month-1
-    else if (timelapse == "Next") month = month+1
-    return monthDays[month]
-  }
-
   $scope.refreshTimetrack = function() {
     $scope.cleanTimetrack()
-    $scope.refreshSavedEntries()
-    $scope.refreshNewEntries()
-  }
-
-  $scope.refreshSavedEntries = function() {
-    $.each($scope.daysFromServer, function(){
-      var dateMatchesParams = $scope.dateMatchesParams(this)
-      if(!dateMatchesParams || this.deleted) {
-        return
-      } else if(this.isExtra == "t" || this.isExtra) {
-        $scope.addNewDay(new Date(this.day), true, this, true)
-      } else {
-        $scope.addNewDay(new Date(this.day), false, this, false)
-      }
-    })
-  }
-
-  $scope.refreshNewEntries = function() {
-    var date_specs = getDateModifications()
-    for (var i = 0; i < date_specs.days_to_show; i++) {
-      var addDay = true
-      $.each($scope.daysFromServer, function(){
-        if($scope.dateMatchesParams(this)) {
-          
-          console.log("======= Next Day =======")
-          console.log("Params: " + i+date_specs.days_modification + ", " + date_specs.timeperiod)
-          console.log($scope.nextDay(i+date_specs.days_modification, date_specs.timeperiod))
-          console.log("======= Current Day =======")
-          console.log($scope.getFormattedDate($scope.nextDay(i+date_specs.days_modification, date_specs.timeperiod)))
-
-          var currentDate = $scope.getFormattedDate($scope.nextDay(i+date_specs.days_modification, date_specs.timeperiod))
-          if(this.date == currentDate) { 
-            addDay = false
-            return false
-          }
-        }
-      })
-      if(addDay)
-        $scope.addNewDay($scope.nextDay(i+date_specs.days_modification, date_specs.timeperiod), false, {}, false)
-    }
-  }
-
-  $scope.dateMatchesParams = function(date){
-    var day_date = ($scope.formatDate(date.date)).getTime()
-    var dateMatchesParams = false
-    if(custom_dates) {
-      var from_date = ($scope.formatDate($scope.getFormattedDate($scope.datepicker.from))).getTime()
-      var to_date   = ($scope.formatDate($scope.getFormattedDate($scope.datepicker.to))).getTime()
-    } else {
-      var from_date = ($scope.formatDate($scope.getDateFrom())).getTime()
-      var to_date   = ($scope.formatDate($scope.getDateTo())).getTime()
-    }
-
-    if( day_date >= from_date && day_date <= to_date ) 
-      dateMatchesParams = true
-
-    //console.log("Is Custom Dates: " + custom_dates)
-    //console.log($scope.getFormattedDate($scope.datepicker.from), 
-                 // date.date, 
-                 // $scope.getFormattedDate($scope.datepicker.to),
-                 // dateMatchesParams)
-
-    //console.log(date.date, from_date/100000, day_date/100000, to_date/100000, "match: " + dateMatchesParams + " custom_dates: " + custom_dates)
-    return dateMatchesParams
+    $scope.processTimetrack($scope.getDateFrom(), $scope.getDateTo())
   }
 
   $scope.setDropDowns = function(){
@@ -284,7 +259,7 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
   $scope.getFirstWeekday = function(date) {
     var unformmatedFirstWeekday = new Date(date.setDate(date.getDate() - date.getDay()))
     return $scope.getFormattedDate(unformmatedFirstWeekday)
-  };
+  }
 
   $scope.getLastWeekday = function(date) {
     var unformmatedLastWeekday = new Date(date.setDate(date.getDate() - date.getDay()+6))
@@ -309,12 +284,16 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
     var month = date.getMonth() + 1
     var year = date.getFullYear()
     return day+"/"+month+"/"+year
-  };
+  }
 
   $scope.getWeekday = function(date) {
     return dayNamesShort[date.getDay()]
-  };
+  }
 
+
+  ///////////////////////////////////////////////
+  // Add and updates days from the scope ////////
+  ///////////////////////////////////////////////
   var day_id_counter = $scope.startingId;
   $scope.addNewDay = function(date, is_extra, day, fromServer) {
     var params = {}
@@ -357,7 +336,7 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
   }
 
   $scope.createTimetrackEntry = function(params) {
-    console.log(params)
+    //console.log("========= createTimetrackEntry ==========" + params)
     $scope.timetrack.days.push({
       "user_id":      params.user_id,
       "day_id":       params.day_id,
@@ -413,75 +392,52 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
     })
   }
 
-  function getDateModifications() {
-    var timelapse = $("#timelapse option:selected").text() || "This"
-    var timeperiod = $("#timeperiod option:selected").text() || "Workday"
-    var daysToShow = 0
-    var startingAt = 0
-    var daysModification = 0
-    
-    if(custom_dates) {
-      console.log("================ custom dates =============")
+  ///////////////////////////////////////////////
+  // Get Dates from datepicker or calculate it //
+  ///////////////////////////////////////////////
+  $scope.setTimeslapseAndTimeperiod = function() {
+    $scope.timelapse = $("#timelapse option:selected").text() || "This"
+    $scope.timeperiod = $("#timeperiod option:selected").text() || "Workday"
+    $scope.date_modifier = 0
 
-      var today = new Date()
-      var start_to_end = Math.round(($scope.datepicker.to - $scope.datepicker.from)/day_in_milisecs)
-      var from_to_today = Math.round(($scope.datepicker.from - today)/day_in_milisecs)
-
-      daysToShow = start_to_end
-      daysModification = from_to_today 
-
-      console.log("from: " + $scope.datepicker.from)
-      console.log("to: " + $scope.datepicker.to) 
-      // console.log("diff_in_milisecs: " + diff_in_milisecs)
-      // console.log("diff_in_days: " + diff_in_days)
-      // console.log("starting_at: " + startingAt)
-      console.log("daysToShow: " + daysToShow)
-      console.log("daysModification: " + daysModification)
-
-
-    } else {
-      switch (timeperiod) {
-        case "Day":
-          daysToShow = startingAt = 1
-          break
-        case "Workday":
-          daysToShow = 5
-          startingAt = 7
-          break
-        case "Week":
-          daysToShow = startingAt = 7
-          break
-        case "Month":
-          daysToShow = startingAt = $scope.getMonthDays(timelapse)
-          break
-      }
-      switch (timelapse) {
-        case "This":
-          break
-        case "Last":
-          daysModification = startingAt*-1
-          break
-        case "Next":
-          daysModification = startingAt
-          break
-      }
+    if($scope.timelapse == "Last") {
+      $scope.date_modifier = -1
+    } else if($scope.timelapse == "Next") {
+      $scope.date_modifier = 1
     }
-    return { "timelapse": timelapse, 
-             "timeperiod": timeperiod,
-             "days_to_show": daysToShow,
-             "days_modification": daysModification }
   }
 
   $scope.getDateFrom = function() {
-    var date_specs = getDateModifications()
-    var dateFrom = $scope.getFormattedDate($scope.nextDay(date_specs.days_modification, date_specs.timeperiod))
-    return dateFrom
+    if(custom_dates) {
+      return $scope.datepicker.from.setHours(0,0,0,0)
+    }
+    $scope.setTimeslapseAndTimeperiod()
+    if($scope.timeperiod == "Day") {
+      return new Date((new Date()).valueOf() + (day_in_milisecs*$scope.date_modifier)).setHours(0,0,0,0)
+    } else if($scope.timeperiod == "Workday" || $scope.timeperiod == "Week") {
+      var first = new Date().getDate()+(7*$scope.date_modifier) - new Date().getDay() + 1
+      return new Date(new Date().setDate(first)).setHours(0,0,0,0)
+    } else if($scope.timeperiod == "Month") {
+      return new Date(new Date().getFullYear(), new Date().getMonth() + ($scope.date_modifier), 1).setHours(0,0,0,0)
+    }
   }
 
   $scope.getDateTo = function() {
-    var date_specs = getDateModifications()
-    var dateTo = $scope.getFormattedDate($scope.nextDay(date_specs.days_modification - 1 + date_specs.days_to_show, date_specs.timeperiod))
-    return dateTo
+    if(custom_dates) {
+      return $scope.datepicker.to.setHours(23,59,59,999)
+    }
+    $scope.setTimeslapseAndTimeperiod()
+    if($scope.timeperiod == "Day") {
+      return new Date((new Date()).valueOf() + (day_in_milisecs*$scope.date_modifier)).setHours(23,59,59,999)
+    } else if($scope.timeperiod == "Workday" || $scope.timeperiod == "Week") {
+      var amount_of_days = 6
+      if($scope.timeperiod == "Workday") amount_of_days = 4
+      var first = (new Date().getDate() + (7*$scope.date_modifier)) - new Date().getDay() + 1
+      var last = first + amount_of_days 
+      return new Date(new Date().setDate(last)).setHours(23,59,59,999)
+    } else if($scope.timeperiod == "Month") {
+      return new Date(new Date().getFullYear(), new Date().getMonth() + (1+$scope.date_modifier), 0).setHours(23,59,59,999)
+    }
   }
 
 
@@ -565,7 +521,15 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
   }
 
   $scope.replicateDay = function(day) {
-    //console.log("Replicate: " + day.date)
+    $.each($scope.timetrack.days, function() {
+      this.client_name = day.client_name
+      this.project_name = day.project_name
+      this.notes = day.notes
+      this.hours = day.hours
+      this.day_type = day.day_type
+    })
+
+    $scope.setDropDowns()
   }
 
 
@@ -575,13 +539,8 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
   $scope.getNextId = function() {
     Time.getNextId().then(function(response){
       day_id_counter = $scope.startingId = response.data.next_id
+      //console.log("===== getNextId ===== " + day_id_counter)
       $scope.refreshTimetrack()
-      setTimeout(function() { $scope.setDropDowns()}, 100)
-      setTimeout(function() {
-        $.each($scope.timetrack.days, function(){
-          $scope.setProject(this)
-        })
-      }, 200)
     }, function(response){
       $scope.messages.setCurrent("errors", response.data.errors)
     })
@@ -593,25 +552,24 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
 
   $scope.saveTimetrack = function() {
     Time.saveTimetrack($scope.timetrack.days).then(function(response){
-      setTimeout(function(){ $scope.getTimetrack(); }, 500)
-      $scope.messages.setCurrent("Success", response.data.info)
+      
+      if(response.status == 202) {
+        $scope.messages.setCurrent('errors', response.data.errors)
+      } else if (response.status == 209) {
+        $scope.messages.setCurrent('warnings', response.data.info)
+      } else {
+         $scope.messages.setCurrent('success', response.data.info)
+         setTimeout(function(){ $scope.getTimetrack(); }, 500)
+      }
     }, function(response){
-      $scope.messages.setCurrent("errors", response.data.errors)
+      $scope.messages.setCurrent('errors', response.data.errors)
     })
   }
 
-  $scope.getTimetrack = function(from, to)  {
-    
-    if(from != null && to !=null)
-      console.log(from, to)
-
+  $scope.getTimetrack = function()  {
     var user_id   = $scope.models.user.id
-    var date_from = from || $scope.getDateFrom()
-    var date_to   = to || $scope.getDateTo()
-
-    date_from = $scope.formatDate(date_from, false).getTime()
-    date_to = $scope.formatDate(date_to, true).getTime()
-
+    var date_from = $scope.getDateFrom()
+    var date_to   = $scope.getDateTo()
 
     //console.log("===== getTimetrack ===== " + date_from + " - " + date_to)
 
@@ -672,7 +630,7 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
   }
 
   $scope.getTotalEntries = function(){
-    return $scope.timetrack.days.length;
+    return $scope.timetrack.days.length
   }
 
   $scope.getTotalExtraEntries = function(){
@@ -685,9 +643,16 @@ function TimeCtrl($scope, Time, $filter) {"use strict";
     return extraDays
   }
 
+  $scope.getTotalDays = function(){
+    var total_days = $scope.getTotalEntries()
+    var extra_days = $scope.getTotalExtraEntries()
+    return parseInt(total_days - extra_days)
+  }
+
 
   ////////////////////////////////
   // Main  ///////////////////////
   ////////////////////////////////
   $scope.getTimetrack()
+  
 }

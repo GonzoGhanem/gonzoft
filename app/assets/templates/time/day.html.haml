@@ -21,9 +21,9 @@
     %a{ "data-toggle" => "tooltip", "title" => "Show Day Info", :href => "", "ng-mouseenter" => "showAddedInfo(day)", "ng-show" => "day.isFromServer", "class" => "ng-hide", "tooltip-html-unsafe" => "{{htmlTooltip}}", "tooltip-placement" => "left" }   
       %span.pull-right.glyphicon.glyphicon-floppy-saved
 
-    %a{ :href => "", "ng-click" => "refreshDay(day)" } 
+    %a{ :href => "", "ng-click" => "refreshDay(day)" }
       %span.glyphicon.glyphicon-refresh
-    %a{ :href => "", "ng-click" => "replicateDay(day)" } 
+    %a{ :href => "", "ng-click" => "replicateDay(day)" }
       %span.glyphicon.glyphicon-asterisk
 
     /%input.form-control{ "type" => "text", "value" => "Click me!", "tooltip" => "See? Now click away...", "tooltip-trigger" => "focus", "tooltip-placement" => "right" }

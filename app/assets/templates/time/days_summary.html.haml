@@ -1,18 +1,26 @@
 %hr
 .row.clearfix.well.custom_well#date_filter{ "ng-model" => "TimeStatisticsCtrl"}
-  .col-md-3
-    Total Hours for period
+  .col-md-2
+    Uncompleted
     %span.badge#uncompleted_days
+      {{ getUncompleted() }}
+  .col-md-2
+    Total Hours
+    %span.badge#total_hours
       {{ getTotal() }}
-  .col-md-3
-    Extra Hours for period
-    %span.badge#extra_time
+  .col-md-2
+    Extra Hours
+    %span.badge#extra_hours
       {{ getExtraTime() }}
-  .col-md-3
-    Total entries for period
-    %span.badge#extra_time
+  .col-md-2
+    Total lines
+    %span.badge#total_lines
       {{ getTotalEntries() }}
-  .col-md-3
-    Total extra entries for period
-    %span.badge#extra_time
+  .col-md-2
+    Extra lines
+    %span.badge#extra_lines
       {{ getTotalExtraEntries() }}
+  .col-md-2
+    Total Days
+    %span.badge#extra_lines
+      {{ getTotalDays() }}

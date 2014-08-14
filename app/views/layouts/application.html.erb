@@ -31,10 +31,12 @@
       {{messages.getCurrent('success')}}
     </div>
     <div class="alert alert-danger" ng-show="messages.getCurrent('errors')">
-      Review the following errors:
-      <div ng-repeat="(field, error) in messages.getCurrent('errors')">
+      {{messages.getCurrent('errors')}}
+     <!--  
+     Review the following errors:
+     <div ng-repeat="(field, error) in messages.getCurrent('errors') track by $index">
         {{field}}: {{error}}
-      </div>
+      </div> -->
     </div>
     <div ng-view>
 
